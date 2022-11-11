@@ -1,0 +1,89 @@
+<!-- ##### Header Area Start ##### -->
+<header class="header-area">
+  <!-- Top Header Area -->
+  <div class="top-header-area">
+    <div class="container h-100">
+      <div class="row h-100 align-items-center">
+        <div class="col-12 d-flex justify-content-between">
+          <!-- Logo Area -->
+          <div class="logo" (click)="logout()">
+            <a href="javascript:;"><img src="assets/img/logo.png" alt="" /></a>
+          </div>
+
+          <!-- Top Contact Info -->
+          <div class="classy-nav-container breakpoint-off">
+            <!-- Menu -->
+            <nav class="classy-navbar justify-content-between" id="creditNav">
+              <!-- Navbar Toggler -->
+              <div class="classy-navbar-toggler">
+                <!-- <span class="navbarToggler"><span></span><span></span><span></span></span> -->
+                <button
+                  type="button"
+                  id="sidebarCollapse"
+                  class="btn btn-bar d-block d-xl-none"
+                  (click)="sideNavService.toggleSideNav()"
+                >
+                  <span><i class="fa fa-bars"></i></span>
+                </button>
+              </div>
+
+              <!-- Menu -->
+              <div class="classy-menu">
+                <app-mobilenav></app-mobilenav>
+                <!-- mobile nav end -->
+
+                <!-- Nav Start -->
+                <div class="classynav d-none d-xl-flex">
+                  <ul class="justify-content-center">
+                    <li *ngIf="!Is_Login">
+                      <a href="javascript:;" routerLink="/main/home">Home</a>
+                    </li>
+
+                    <li *ngIf="!Is_Login">
+                      <a href="javascript:;" routerLink="/main/about">About</a>
+                    </li>
+                    <li *ngIf="!Is_Login">
+                      <a href="javascript:;" routerLink="/main/works"
+                        >How It Works</a
+                      >
+                    </li>
+                    <li *ngIf="!Is_Login">
+                      <a href="javascript:;" routerLink="/main/pricing"
+                        >Pricing</a
+                      >
+                    </li>
+                    <li *ngIf="!Is_Login" class="header-border1">
+                      <a href="javascript:;" routerLink="/main/contact"
+                        >Contact Us</a
+                      >
+                    </li>
+                  </ul>
+                  <ul class="text-end">
+                    <li *ngIf="!Is_Login" class="nav-btn">
+                      <a href="javascript:;" routerLink="/system/login"
+                        >Log In</a
+                      >
+                    </li>
+                    <li *ngIf="!Is_Login" class="nav-btn ml-lg-2">
+                      <a href="javascript:;" (click)="opensigup()">Sign Up</a>
+                    </li>
+                    <li *ngIf="!Is_Login" class="nav-btn1">
+                      <a href="javascript:;" routerLink="/system/signup"
+                        >TRY BEFORE YOU BUY</a
+                      >
+                    </li>
+                    <li class="nav-btn" *ngIf="Is_Login" (click)="logout()">
+                      <a href="javascript:;">Log Out</a>
+                    </li>
+                  </ul>
+                </div>
+                <!-- Nav End -->
+              </div>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<!-- ##### Header Area End ##### -->

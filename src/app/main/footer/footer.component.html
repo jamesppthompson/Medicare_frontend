@@ -1,0 +1,47 @@
+<!-- footer start -->
+<!-- ##### Footer Area Start ##### -->
+<div class="navbar navbar-default navbar-fixed-bottom footer-top">
+  <div class="container p-0 p-md-auto">
+    <div class="d-md-flex">
+      <p><i class="fa fa-envelope-o mr-2"></i>
+        <a href="javascript:;"
+          routerLink="/main/contact">Magic@MedicareMagician.US</a>
+      </p>
+      <p class="ml-4 mr-4 d-none d-md-block">or
+      </p>
+      <p (click)="openChatWindow()"
+        class=""
+        style="cursor: pointer;"><i class="fa fa-commenting-o"></i> Chat Timing (9 AM to 9 PM East Coast)
+      </p>
+    </div>
+
+    <div class="pull-right d-none">
+      <a href="#">
+        <i class="fa fa-instagram"></i>
+      </a>
+      <a href="#">
+        <i class="fa fa-twitter"></i>
+      </a>
+      <a href="#">
+        <i class="fa fa-facebook"></i>
+      </a>
+    </div>
+  </div>
+</div>
+<div class="navbar navbar-default navbar-fixed-bottom footer-end">
+  <div class="container p-md-0">
+
+    <p class="navbar-text pull-left">© 2021 Medicare Magician - all rights reserved </p>
+
+    <p class="pull-right">Design By <a href="#">
+        Emerald Penguin Creative
+      </a></p>
+  </div>
+</div>
+<!-- ##### Footer Area Start ##### -->
+<!-- ?footer end -->
+<livechat-widget #liveChatWidget
+  [licenseId]="lic"
+  (onChatLoaded)="onChatLoaded($event)"
+  (onChatWindowOpened)="onChatWindowOpened()"
+  [visitor]="visitor"></livechat-widget>

@@ -1,0 +1,159 @@
+<ngx-loading [show]="loading"
+  [config]="{ backdropBorderRadius: '3px', fullScreenBackdrop: true }">
+</ngx-loading>
+<div class="container pt-5">
+  <div class="row h-100 justify-content-center align-items-center">
+    <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 text-white text-center">
+      <div>
+        <div class="card-body"><img routerLink="/main/home"
+            src="assets/img/logo.png"
+            alt=""
+            class="img-fluid"
+            style="cursor: pointer;"></div>
+      </div>
+    </div>
+    <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 py-3">
+      <main class="main">
+        <div class="container">
+          <section class="wrapper">
+            <div class="heading">
+              <h1 class="text text-large sign-title m-0">Login</h1>
+              <p class="text text-normal m-0">New user? <span><a href="javascript:;"
+                    routerLink="/system/signup"
+                    class="text text-links">Create an account</a></span>
+              </p>
+            </div>
+            <form [formGroup]="frmLogin"
+              name="login"
+              class="form">
+              <div class="input-group input-control">
+                <input type="email"
+                  name="email"
+                  class="form-control"
+                  formControlName="email"
+                  placeholder="Email Address"
+                  [ngClass]="{ 'is-invalid': submitted && frmCtrl.email.errors }"
+                  aria-label="Amount (to the nearest dollar)">
+              </div>
+              <div class="input-group input-control">
+                <input [type]="hide ? 'password' : 'text'"
+                  name="password"
+                  formControlName="password"
+                  placeholder="Password"
+                  class="form-control"
+                  aria-label="Amount (to the nearest dollar)"
+                  [ngClass]="{ 'is-invalid': submitted && frmCtrl.password.errors}">
+                <div class="input-group-append">
+                  <span class="input-group-text"
+                    (click)="hide=!hide"
+                    style="cursor: pointer;">
+                    <i *ngIf="!hide"
+                      class="fa fa-eye"
+                      aria-hidden="true"
+                      style="padding: 4px;"></i>
+                    <i *ngIf="hide"
+                      class="fa fa-eye-slash"
+                      aria-hidden="true"
+                      style="padding: 4px;"></i>
+                  </span>
+                </div>
+              </div>
+              <div class="input-control">
+                <a href="javascript:;"
+                  (click)="OpenForgotModal(ForgotPasswordModal)"
+                  class="text text-links">Forgot Password</a>
+                <a href="javascript:;"
+                  class="text text-links">&nbsp;</a>
+                <input type="button"
+                  name="submit"
+                  (click)="loginsumbit()"
+                  class="input-submit"
+                  value="Login">
+              </div>
+            </form>
+            <div class="striped d-none">
+              <span class="striped-line"></span>
+              <span class="striped-text">Or</span>
+              <span class="striped-line"></span>
+            </div>
+            <div class="method d-none">
+              <div class="method-control">
+                <a href="#"
+                  class="method-action">
+                  <i class="ion ion-logo-google fa fa-google"></i>
+                  <span>Sign in with Google</span>
+                </a>
+              </div>
+              <div class="method-control">
+                <a href="#"
+                  class="method-action">
+                  <i class="ion ion-logo-facebook fa fa-facebook"></i>
+                  <span>Sign in with Facebook</span>
+                </a>
+              </div>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<ng-template #ForgotPasswordModal
+  let-c="close"
+  let-d="dismiss">
+  <div class="modal-header bg-primary">
+    <h5 class="text-white">Forgot Password</h5>
+    <button type="button"
+      class="close text-white"
+      aria-label="Close"
+      (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="container-fluid">
+
+      <div class="row">
+        <div class="col-sm-12 m-0 p-0">
+          <input type="email"
+            name="email"
+            class="form-control input-field"
+            placeholder="Email Address"
+            [(ngModel)]="fEmail"
+            [disabled]="IsKeySend">
+
+          <input *ngIf="IsKeySend"
+            type="text"
+            name="key"
+            class="form-control input-field mt-2"
+            placeholder="New Password"
+            [(ngModel)]="newpassword">
+
+          <input *ngIf="IsKeySend"
+            type="text"
+            name="key"
+            class="form-control input-field mt-2"
+            placeholder="Confirm Password"
+            [(ngModel)]="cfnewpassword">
+
+          <input *ngIf="IsKeySend"
+            type="text"
+            name="key"
+            class="form-control input-field mt-2"
+            placeholder="Password Key"
+            [(ngModel)]="pKey">
+
+          <button (click)="SubmitForgot()"
+            class="btn btn-primary text-center my-3"
+            type="button">Submit</button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

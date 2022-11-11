@@ -1,0 +1,167 @@
+<app-menutop></app-menutop>
+
+<ngx-loading [show]="loading"
+  [config]="{ backdropBorderRadius: '3px', fullScreenBackdrop: true }">
+</ngx-loading>
+
+<section class="signup-form">
+  <div class="container">
+    <div class="row justify-content-center align-items-center vh-100">
+      <div class="col-md-8">
+        <div class="contact-form-area contact-page">
+          <h3 class="text-center text-white mb-1">Sign Up Now for a FREE Trial</h3>
+          <p class="text-center text-white text text-normal mb-3 d-none">
+            Have an account? <span class="login_btn">
+              <a href="javascript:;"
+                routerLink="/system/login"
+                class="text text-links">
+                Log In
+              </a>
+            </span>
+          </p>
+          <form [formGroup]="Regform">
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label for="">First Name <span class="text-danger">*</span></label>
+                  <input type="text"
+                    class="form-control"
+                    formControlName="first_name"
+                    id="name"
+                    placeholder="First Name"
+                    [ngClass]="{'is-invalid': submitted && frmCtrl.first_name.errors}">
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label for="">Last Name <span class="text-danger">*</span></label>
+                  <input type="text"
+                    class="form-control"
+                    id="name"
+                    formControlName="last_name"
+                    placeholder="Last Name"
+                    [ngClass]="{'is-invalid': submitted && frmCtrl.last_name.errors}">
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="form-group">
+                  <label for="">Email <span class="text-danger">*</span></label>
+                  <input type="email"
+                    class="form-control"
+                    formControlName="email"
+                    id="email"
+                    placeholder="Email"
+                    [ngClass]="{'is-invalid': submitted && frmCtrl.email.errors}">
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label for="">Street Address</label>
+                  <input type="text"
+                    class="form-control"
+                    formControlName="street"
+                    id="name"
+                    placeholder="Street Address">
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label for="">State</label>
+                  <input type="text"
+                    class="form-control"
+                    formControlName="state"
+                    id="name"
+                    placeholder="State">
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label for="">Zip</label>
+                  <input type="text"
+                    class="form-control"
+                    formControlName="zip"
+                    id="name"
+                    placeholder="Zip">
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label for="">Password <span class="text-danger">*</span></label>
+                  <input type="password"
+                    class="form-control"
+                    formControlName="password"
+                    id="name"
+                    placeholder="Password"
+                    [ngClass]="{'is-invalid': submitted && frmCtrl.password.errors}">
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label for="">Confirm Password <span class="text-danger">*</span></label>
+                  <input type="password"
+                    class="form-control"
+                    formControlName="cpassword"
+                    id="name"
+                    placeholder="Confirm Password"
+                    [ngClass]="{'is-invalid': submitted && frmCtrl.cpassword.errors}">
+                </div>
+              </div>
+
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label for="">Phone <span class="text-danger">*</span></label>
+                  <input type="text"
+                    class="form-control"
+                    appPhoneMask
+                    formControlName="phone_no"
+                    id="name"
+                    placeholder="Phone"
+                    [ngClass]="{'is-invalid': submitted && frmCtrl.phone_no.errors}">
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label for="">National Producer Number <span class="text-danger">*</span></label>
+                  <input type="text"
+                    class="form-control"
+                    (keypress)="numberOnly($event)"
+                    formControlName="npn"
+                    id="name"
+                    placeholder="NPN"
+                    [ngClass]="{'is-invalid': submitted && frmCtrl.npn.errors}">
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="form-group">
+                  <label for="">Company</label>
+                  <input type="text"
+                    class="form-control"
+                    formControlName="street"
+                    id="subject"
+                    placeholder="Company">
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="form-group">
+                  <label for="">Website</label>
+                  <input type="text"
+                    class="form-control"
+                    formControlName="website"
+                    id="subject"
+                    placeholder="Website">
+                </div>
+              </div>
+              <div class="col-12 text-center">
+                <button class="btn credit-btn1 btn-block br-20"
+                  type="button"
+                  (click)="SubmitFunction()">SUBMIT</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!--<app-footer></app-footer>-->

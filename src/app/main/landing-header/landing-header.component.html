@@ -1,0 +1,85 @@
+<!-- ##### Header Area Start ##### -->
+<header class="header-area">
+  <!-- Top Header Area -->
+  <div class="top-header-area">
+    <div class="container h-100">
+      <div class="row h-100 align-items-center">
+        <div class="col-12 d-flex justify-content-between">
+          <!-- Logo Area -->
+          <div class="logo"
+            (click)="logout()">
+            <a href="javascript:;"
+              routerLink="/main/index"><img src="assets/img/logo.png"
+                alt="" /></a>
+          </div>
+
+          <!-- Top Contact Info -->
+          <div class="classy-nav-container breakpoint-off">
+            <!-- Menu -->
+            <nav class="classy-navbar justify-content-between"
+              id="creditNav">
+              <!-- Navbar Toggler -->
+              <div class="classy-navbar-toggler">
+                <!-- <span class="navbarToggler"><span></span><span></span><span></span></span> -->
+                <button type="button"
+                  id="sidebarCollapse"
+                  class="btn btn-bar d-block d-xl-none">
+                  <span><i class="fa fa-bars"></i></span>
+                </button>
+              </div>
+
+              <!-- Menu -->
+              <div class="classy-menu">
+                <!-- mobile nav start -->
+                <nav id="sidebar"
+                  class="d-block d-xl-none">
+                  <div id="dismiss">
+                    <i class="fa fa-times"></i>
+                  </div>
+                  <div class="sidebar-header">
+                    <a href="javascript:;"
+                      routerLink="/main/index"><img src="assets/img/logo.png"
+                        alt="" /></a>
+                  </div>
+                  <ul class="list-unstyled components">
+                    <li>
+                      <a class="fs-12"
+                        href="javascript:;"
+                        routerLink="/main/contact"><img src="assets/img/mail-header.png"
+                          alt=""> Magic@MedicareMagician.US</a>
+                    </li>
+                    <li><a class="fs-12"
+                        (click)="chatclick()"
+                        href="javascript:;"><img src="assets/img/messenger.png"
+                          alt=""> Click to Chat Now (9 AM
+                        to 9 PM East Coast)</a></li>
+                  </ul>
+                </nav>
+                <!-- mobile nav end -->
+
+                <!-- Nav Start -->
+                <div class="classynav d-none d-xl-flex">
+                  <ul class="text-end">
+                    <li><a class="fs-12"
+                        href="javascript:;"
+                        routerLink="/main/contact"><img src="assets/img/mail-header.png"
+                          alt=""> Magic@MedicareMagician.US</a>
+                    </li>
+                    <li class="blue-color d-none d-xl-inline-block fs-14 px-md-4">or</li>
+                    <li><a class="fs-12"
+                        (click)="chatclick()"
+                        href="javascript:;"><img src="assets/img/messenger.png"
+                          alt=""> Click to Chat Now (9 AM
+                        to 9 PM East Coast)</a></li>
+                  </ul>
+                </div>
+                <!-- Nav End -->
+              </div>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<!-- ##### Header Area End ##### -->

@@ -1,0 +1,32 @@
+.card .back h5 {
+  font-size: 0.95rem;
+}
+
+.card .back {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card__back {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card__back p {
+  color: #000001;
+  line-height: 14px;
+  font-size: 0.8rem;
+  padding-top: 31px;
+}
+
+.checking {
+  display: inline;
+}
+
+@media only screen and (max-width: 767px) {
+  .card .back {
+    padding: 2em 1em;
+  }
+}

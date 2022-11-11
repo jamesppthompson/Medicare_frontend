@@ -1,0 +1,8 @@
+.is-invalid {
+  border: 2px solid red !important;
+}
+
+.login_btn a,
+.login_btn a:hover {
+  color: #7cb2f9;
+}

@@ -1,0 +1,33 @@
+<ng-template #paymentTemplate
+  let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title"
+      id="modal-basic-title">Pay</h4>
+    <button type="button"
+      class="close btn-close"
+      aria-label="Close"
+      (click)="closePaymentIframeModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <iframe [src]="paymentIframeUrl"
+      title="PF"
+      style="width: 100%; height: calc(100vh - 160px);"></iframe>
+  </div>
+
+  <!-- <div class="modal-footer">
+        <button type="button"
+                class="btn btn-outline-dark"
+                (click)="modal.close('Save click')">Save</button>
+    </div> -->
+
+
+</ng-template>
+
+<div class="modal-body"
+  *ngIf="_showPaymentIframe && !openAsModal">
+  <iframe [src]="paymentIframeUrl"
+    title="PF"
+    style="width: 100%; height: calc(100vh - 160px);"></iframe>
+</div>

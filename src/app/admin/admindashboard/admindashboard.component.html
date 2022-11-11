@@ -1,0 +1,106 @@
+<ngx-loading [show]="loading"
+  [config]="{ backdropBorderRadius: '3px', fullScreenBackdrop: true }">
+</ngx-loading>
+<header class="header-area">
+  <div class="top-header-area">
+    <div class="container h-100">
+      <div class="row h-100 align-items-center">
+        <div class="col-12 d-flex justify-content-between">
+          <div class="logo">
+            <a href="javascript:;"
+              routerLink="/main/home"><img src="assets/img/logo.png"
+                alt="" /></a>
+          </div>
+          <div class="classy-nav-container breakpoint-off">
+            <nav class="classy-navbar justify-content-between"
+              id="creditNav">
+              <div class="classy-menu">
+                <div class="classynav d-none d-xl-flex">
+                  <ul class="justify-content-center">
+
+                  </ul>
+                  <ul class="text-end">
+                    <li class="nav-btn">
+                      <a href="javascript:;"
+                        routerLink="/main/home">Log Out</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="container mt-5" style="max-width: 95vw;">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-heading">
+          <div class="form-group col-sm-2 m-0  ml-auto mb-2">
+            <div class="iq-search-bar device-search">
+              <div class="searchbox1">
+                <label class="mb-2 mr-sm-2"
+                  for="Search">&nbsp;</label>
+                <input type="text"
+                  [(ngModel)]="searchText"
+                  [ngModelOptions]="{ standalone: true }"
+                  class="form-control"
+                  placeholder="Search" />
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-body p-0">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">Customer No.</th>
+                <th scope="col">Date Time</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">NPN#</th>
+                <th scope="col">Address</th>
+                <th scope="col">Payment Status</th>
+                <th scope="col">Subscription Type</th>
+                <th scope="col">Subscription Expired</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                *ngFor="let lCust of listCustomers
+                                    | slice: (page - 1) * pageSize:(page - 1) * pageSize + pageSize | filter: searchText ;  let i = index">
+                <!-- <td scope="row">{{ lCust._id }}</td>
+                <td scope="row">{{ lCust.create_at | date:'MM-dd-yyyy' }}</td>
+                <td scope="row">{{ lCust.first_name }} {{ lCust.last_name }}</td>
+                <td scope="row">{{ lCust.email }}</td>
+                <td scope="row">{{ lCust.npn }}</td>
+                <td scope="row">{{ lCust.street }} , {{ lCust.state }} - {{ lCust.zip }}</td>
+                <td scope="row">{{ lCust.pstatus }}</td>
+                <td scope="row">{{ lCust.planName }}</td> -->
+
+                <td scope="row">{{ lCust.userId }}</td>
+                <td scope="row">{{ lCust.createdAt | date:'MM-dd-yyyy' }}</td>
+                <td scope="row">{{ lCust.firstName }} {{ lCust.lastName }}</td>
+                <td scope="row">{{ lCust.email }}</td>
+                <td scope="row">{{ lCust.npn }}</td>
+                <td scope="row">{{ lCust.street }} , {{ lCust.state }} - {{ lCust.zip }}</td>
+                <td scope="row">{{ lCust.paymentStatus }}</td>
+                <td scope="row">{{ lCust.name }}</td>
+                <td scope="row">{{ isSubscriptionExpired(lCust.subscriptionEndDate)}}</td>
+              </tr>
+            </tbody>
+          </table>
+          <ngb-pagination [collectionSize]="listCustomers.length"
+            [(page)]="page"
+            [pageSize]="pageSize"
+            aria-label="Default pagination"></ngb-pagination>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

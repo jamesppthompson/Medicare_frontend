@@ -1,0 +1,355 @@
+/* lessthan 767px */
+@media only screen and (max-width: 767px) {
+    .about-carousal .card {
+        height: 195px;
+    }
+    .contact-form-area h3 {
+        font-size: 1.5rem;
+    }
+    .howit-works h3 {
+        font-family: navfont;
+        font-size: 1.8em;
+        font-weight: 600;
+    }
+    .chat-section h3 {
+        font-size: 1.3rem;
+        color: #e71720;
+        font-weight: 500;
+    }
+    .chat-section h5 {
+        color: #062648;
+        font-size: 1.3em;
+        font-weight: 500;
+    }
+    .fs-12 {
+        font-size: 12px !important;
+    }
+    .landing-chat {
+        position: absolute;
+        right: 0;
+        top: -30px;
+        width: 84px;
+        cursor: pointer;
+    }
+    .align {
+        text-align: center;
+    }
+    .font-lg {
+        font-size: 1.3em !important;
+    }
+    .pt-44 {
+        margin-top: 0;
+        height: auto;
+    }
+    .price-header {
+        background: #062648;
+        color: #fff;
+        padding: 1em;
+        border-radius: 0;
+    }
+    .list h2 {
+        padding: 1em;
+        font-size: 1.4rem;
+    }
+    .list {
+        padding: 0;
+    }
+    .card h5 {
+        color: #fff;
+        font-family: navFont;
+        font-weight: 100;
+        font-size: 1.1rem;
+    }
+    .card .back {
+        padding: 2em 4em;
+    }
+    .about-section p {
+        color: #000001;
+        font-family: navfont;
+        padding: 1em !important;
+        font-size: 1.2em !important;
+        margin-bottom: 0 !important;
+    }
+    .free-trial p {
+        text-align: center;
+    }
+    .main-banner1 {
+        text-align: center;
+        margin-top: 0.5em;
+        margin-bottom: 0.5em;
+    }
+    .nav-btn1 {
+        margin-left: 0;
+        box-shadow: none;
+    }
+    .main-banner .display-4 {
+        font-size: 2.5rem !important;
+    }
+    .work-badge .col-6 {
+        margin-bottom: 1em;
+    }
+    .hand-section img {
+        margin-top: -5em;
+        z-index: -2000;
+    }
+    /* .jumbotron.bg-cover.text-white.main-banner {
+    background: url(img/banner.png);
+    background-position: right center !important;
+}
+.main-banner h1 {
+    color: #0085d3;
+    font-family: navFont;
+    text-shadow: 1px 1px 0px #312e2e;
+} */
+    .about-bg h3 {
+        color: #fff;
+        padding: 3rem;
+        font-size: 1rem;
+    }
+    .about-medicare p {
+        font-family: "navFont";
+        color: #000001;
+        margin-bottom: 0.5em;
+        line-height: 1.5;
+        font-size: 1.2em;
+    }
+    .about-magician h4 {
+        color: #0085d3;
+        padding: 0em;
+        font-size: 20px;
+        font-weight: 600;
+        padding-top: 1em;
+    }
+    .quote h6 {
+        color: #fff;
+        width: 100%;
+        font-weight: 500;
+        font-size: 1.2rem;
+        padding-right: 0;
+    }
+    .howit-works .pfont {
+        font-size: 1.2em;
+    }
+    .about-bg {
+        background: url(../img/magic.png);
+        background-size: cover;
+        padding: 1em;
+        background-position: 35% 48%;
+        /* background: #000; */
+    }
+    .padding-cards {
+        padding: 0;
+    }
+    .padding-cards1 {
+        padding: 2em 1em;
+    }
+    .howit-works .card-box img {
+        padding: 0 2em;
+    }
+    .howit-works .card__back p {
+        color: #000001;
+        line-height: 19px;
+        font-size: 14px;
+        padding: 0;
+        font-weight: 500;
+    }
+    .howit-works .card-box p {
+        color: #000001;
+        line-height: 20px;
+        padding-top: 5px;
+    }
+    .msg_container img {
+        display: none;
+        width: 100%;
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+    .landing-chat {
+        position: absolute;
+        right: -27px;
+        top: -48px;
+        width: 84px;
+        cursor: pointer;
+    }
+    .font-lg {
+        font-size: 1.3em !important;
+    }
+    .price-box h6 {
+        color: #fff;
+        font-size: 1.1em;
+    }
+    .price-body h3 {
+        color: #062648;
+        font-size: 1.2rem;
+    }
+    .billing label {
+        color: #000001;
+        font-weight: 600;
+        margin-bottom: 0.2em;
+        font-size: 12px;
+    }
+    .list h2 {
+        padding: 1em;
+        font-size: 1.5rem;
+    }
+    .benefits p {
+        color: #000001;
+        font-size: 14px;
+        padding-top: 0.5em;
+    }
+    .about-section p {
+        color: #000001;
+        font-family: navfont;
+        padding: 1em !important;
+        font-size: 1.2em !important;
+    }
+       .main-banner {
+        border-radius: 0;
+        height: 367px;
+        /* height: 563px; */
+    }
+    .free-trial h1 {
+        font-size: 28px;
+    }
+    .free-trial a {
+        color: #fff;
+        font-family: 'navFont';
+        box-shadow: 3px 3px 10px #000001 !important;
+        font-size: 1.2em;
+        padding: .3rem 1rem;
+    }
+    .main-banner .py-5 {
+        padding-top: 0rem !important;
+        padding-bottom: 0rem !important;
+    }
+    .main-banner .display-4 {
+        font-size: 2.5rem;
+    }
+    .main-banner p {
+        color: #fff;
+        line-height: 26px;
+        margin-bottom: 10px !important;
+        margin-top: 1em;
+        font-size: 19px;
+    }
+    .hand-section img {
+        margin-top: -13em;
+        z-index: -2000;
+    }
+    .about-bg h3 {
+        color: #fff;
+        padding: 1.5em 5em;
+        font-size: 25px;
+    }
+    .about-magician h4 {
+        color: #0085d3;
+        padding: 1em;
+        font-size: 21px;
+        font-weight: 600;
+    }
+    .padding-cards {
+        padding: 2em 0;
+    }
+    .padding-cards1 {
+        padding: 2em 0;
+    }
+    .howit-works .card-box img {
+        width: 80%;
+        padding: 0 2em;
+    }
+    .howit-works .card-box p {
+        color: #000001;
+        line-height: 20px;
+        font-size: 16px;
+        padding-top: 10px;
+    }
+    .howit-works .card__back p {
+        color: #000001;
+        line-height: 24px;
+        font-size: 16px;
+        padding: 0 14px;
+        font-weight: 500;
+    }
+}
+@media only screen and (min-width: 1023px) and (max-width: 1120px) {
+    .landing-chat {
+        position: absolute;
+        right: -22px;
+        top: -43px;
+        width: 84px;
+        cursor: pointer;
+    }
+    .card-flipper {
+        height: 188px;
+    }
+    .card__front {
+        padding: 2em;
+    }
+    .card-box img {
+        margin-bottom: 10px;
+    }
+    .card__back {
+        padding: 2em;
+    }
+    .cardBox .card img {
+        width: 45%;
+        margin-bottom: 10px;
+        padding: 0.5em;
+    }
+    .about-bg h3 {
+        color: #fff;
+        padding: 2em 7em;
+    }
+    .about-magician h4 {
+        color: #0085d3;
+        padding: 1em;
+        font-size: 28px;
+        font-weight: 600;
+    }
+    .classynav li a {
+        font-size: 14px !important;
+        padding: 0 10px !important;
+    }
+    .nav-btn1 {
+        background: #E71720 !important;
+        box-shadow: 3px 3px 10px #000001;
+        color: #fff !important;
+        border-radius: 4px;
+        padding: 0 0em;
+        margin-left: 0em;
+    }
+    .about-section p {
+        color: #000001;
+        font-family: navfont;
+        padding: 1em !important;
+        font-size: 1.6em !important;
+    }
+}
+
+@media only screen and (min-width: 1025px) {
+    .header-border {
+        border-right: 1px solid #707070;
+        padding-right: 1em;
+        margin-right: 1em;
+    }
+    .workcard-text {
+        padding: 0.5em 9em;
+        font-size: 19px;
+    }
+    .testimonial blockquote p {
+        min-height: 90px;
+    }
+}
+.cardBox .card {
+    cursor: default;
+    height: 250px;
+    transform-style: preserve-3d;
+    transition: transform 0.4s ease 0s;
+    width: 100%;
+    -webkit-animation: giro 1s 1;
+    animation: giro 1s 1;
+    background: linear-gradient(to bottom, #03416f 0%, #022742 100%);
+    border-radius: 26px;
+    border: none;
+}
