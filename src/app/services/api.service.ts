@@ -19,5 +19,6 @@ export class ApiService {
   };
   public paymentAPI = {
     checkout_square: 'checkout_square',
+    Pay: "Pay",
   };
 }

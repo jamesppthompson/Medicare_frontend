@@ -74,89 +74,89 @@ export class HomeComponent implements OnInit, OnDestroy {
     private readonly subscribedPlanService: SubscribedPlanService,
     private readonly agreementRestService: AgreementRestService
   ) {
-    config.backdrop = 'static';
-    config.keyboard = false;
-    this.subscriptions.add(
-      this.profileService.medicareMagicianProfile$.subscribe(
-        (medicareMagicianProfile) => {
-          this.profile_json = medicareMagicianProfile;
-          this.firstname = medicareMagicianProfile?.firstName || '';
-          this.lastname = medicareMagicianProfile?.lastName || '';
-          this.npn = medicareMagicianProfile?.npn || '';
-          this.email = medicareMagicianProfile?.email || '';
-          // TODO: Vivek: To get payment status flag here.
-          // this.payment_status = profile[0].pstatus;
-          this._id = medicareMagicianProfile?.userId;
-          this.pname = this.by1 = this.firstname + ' ' + this.lastname;
-          this.address =
-            (medicareMagicianProfile?.street || '') +
-            ' ' +
-            (medicareMagicianProfile?.state || '') +
-            ' ' +
-            (medicareMagicianProfile?.zip || '');
-          this.crDate = new Date();
-        }
-      )
-    );
-    // this.profile_json = localStorage.getItem('profile');
-    // let profile = JSON.parse(this.profile_json);
-    // this.firstname = profile[0].first_name;
-    // this.lastname = profile[0].last_name;
-    // this.npn = profile[0].npn;
-    // this.email = profile[0].email;
-    // this.payment_status = profile[0].pstatus;
-    // this._id = profile[0]._id.toString();
-    // this.pname = profile[0].first_name + ' ' + profile[0].last_name;
-    // this.address =
-    //   profile[0].street + ' ' + profile[0].state + ' ' + profile[0].zip;
-    // this.by1 = profile[0].first_name + ' ' + profile[0].last_name;
-    // this.crDate = new Date();
+    // config.backdrop = 'static';
+    // config.keyboard = false;
+    // this.subscriptions.add(
+    //   this.profileService.medicareMagicianProfile$.subscribe(
+    //     (medicareMagicianProfile) => {
+    //       this.profile_json = medicareMagicianProfile;
+    //       this.firstname = medicareMagicianProfile?.firstName || '';
+    //       this.lastname = medicareMagicianProfile?.lastName || '';
+    //       this.npn = medicareMagicianProfile?.npn || '';
+    //       this.email = medicareMagicianProfile?.email || '';
+    //       // TODO: Vivek: To get payment status flag here.
+    //       // this.payment_status = profile[0].pstatus;
+    //       this._id = medicareMagicianProfile?.userId;
+    //       this.pname = this.by1 = this.firstname + ' ' + this.lastname;
+    //       this.address =
+    //         (medicareMagicianProfile?.street || '') +
+    //         ' ' +
+    //         (medicareMagicianProfile?.state || '') +
+    //         ' ' +
+    //         (medicareMagicianProfile?.zip || '');
+    //       this.crDate = new Date();
+    //     }
+    //   )
+    // );
+    this.profile_json = localStorage.getItem('profile');
+    let profile = JSON.parse(this.profile_json);
+    this.firstname = profile[0].first_name;
+    this.lastname = profile[0].last_name;
+    this.npn = profile[0].npn;
+    this.email = profile[0].email;
+    this.payment_status = profile[0].pstatus;
+    this._id = profile[0]._id.toString();
+    this.pname = profile[0].first_name + ' ' + profile[0].last_name;
+    this.address =
+      profile[0].street + ' ' + profile[0].state + ' ' + profile[0].zip;
+    this.by1 = profile[0].first_name + ' ' + profile[0].last_name;
+    this.crDate = new Date();
   }
 
   ngOnInit(): void {
-    this.initSubscriptionPlans();
+    // this.initSubscriptionPlans();
 
-    this.subscribedPlanService.loadSubscribedPlans(true);
+    // this.subscribedPlanService.loadSubscribedPlans(true);
 
-    this.subscriptions.add(
-      this.subscribedPlanService.validSubscribedPlan$.subscribe(
-        (validSubscribedPlans) => {
-          this.validSubscribedPlans = validSubscribedPlans || [];
-        }
-      )
-    );
+    // this.subscriptions.add(
+    //   this.subscribedPlanService.validSubscribedPlan$.subscribe(
+    //     (validSubscribedPlans) => {
+    //       this.validSubscribedPlans = validSubscribedPlans || [];
+    //     }
+    //   )
+    // );
   }
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
   }
 
-  private initSubscriptionPlans() {
-    this.subscriptions.add(
-      this.subscriptionPlansService.subscriptionPlans$.subscribe(
-        (subscriptionPlans) => (this.subscriptionPlans = subscriptionPlans)
-      )
-    );
-  }
+  // private initSubscriptionPlans() {
+  //   this.subscriptions.add(
+  //     this.subscriptionPlansService.subscriptionPlans$.subscribe(
+  //       (subscriptionPlans) => (this.subscriptionPlans = subscriptionPlans)
+  //     )
+  //   );
+  // }
 
-  async main() {
-    const APPLICATION_ID = 'sandbox-sq0idb-IBMmlwqNH4Cu1xSS4zkYBQ';
-    const LOCATION_ID = 'L07YM6DY7HZYT';
+  // async main() {
+  //   const APPLICATION_ID = 'sandbox-sq0idb-IBMmlwqNH4Cu1xSS4zkYBQ';
+  //   const LOCATION_ID = 'L07YM6DY7HZYT';
 
-    const payments = Square.payments(APPLICATION_ID, LOCATION_ID);
-    this.card = await payments.card();
-    await this.card.attach('#card-container');
-  }
+  //   const payments = Square.payments(APPLICATION_ID, LOCATION_ID);
+  //   this.card = await payments.card();
+  //   await this.card.attach('#card-container');
+  // }
 
-  async SquarePaymentProcess() {
-    try {
-      const result = await this.card.tokenize();
-      if (result.status === 'OK') {
-        this.ConfirmPayment(result.token);
-      }
-    } catch (e) {
-      //this.toastr.error(e, '');
-    }
-  }
+  // async SquarePaymentProcess() {
+  //   try {
+  //     const result = await this.card.tokenize();
+  //     if (result.status === 'OK') {
+  //       this.ConfirmPayment(result.token);
+  //     }
+  //   } catch (e) {
+  //     //this.toastr.error(e, '');
+  //   }
+  // }
 
   async ConfirmPayment(token: any) {
     try {
@@ -164,7 +164,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       const body = {
         source_id: token,
         amount: this.plan_amt,
-        UserUUID: localStorage.getItem('UserUUID'),
+        UserID: localStorage.getItem('UserID'),
         planname: this.plan_name,
         id: this._id,
       };
@@ -184,10 +184,10 @@ export class HomeComponent implements OnInit, OnDestroy {
         } else {
           this.toastr.info('Payment Successful', '');
           this.payment_status = 'Paid';
-          window.open(
-            'https://medicaremagiciansoftware.s3.amazonaws.com/MedicareMagician.exe',
-            '_blank'
-          );
+          // window.open(
+          //   'https://medicaremagiciansoftware.s3.amazonaws.com/MedicareMagician.exe',
+          //   '_blank'
+          // );
         }
       }
       this.loading = false;
@@ -201,16 +201,53 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
   }
 
-  Payment() {
+  async Payment() {
     this.loading = true;
-    this.SquarePaymentProcess();
+    // this.SquarePaymentProcess();
+    const cardNumber = $("#cardNumber").val();
+    const cvv = $("#cvv").val();
+    const expirationDate = $("#expirationDate").val();
+    
+    try {
+      this.submitted = true;
+      const body = {
+        amount: 1.00,
+        userId: localStorage.getItem('UserID'),
+        cardNumber: cardNumber,
+        expirationDate: expirationDate,
+        cvv: cvv,
+        planName: this.plan_name,
+      };
+      //localStorage.setItem("profile", JSON.stringify(loginInfo.data));
+      const headers: object[] = [];
+      const options = this.commonservice.generateRequestHeaders(headers);
+      const payInfo = await this.commonservice.SubmitPostFormData(
+        this.api.paymentAPI.Pay,
+        body,
+        options
+      );
+      if (payInfo.status != '1') {
+        this.toastr.error(payInfo.message, '');
+      } else {
+        this.toastr.info('Payment Successful', '');
+        this.payment_status = 'Paid';
+      }
+      this.loading = false;
+      this.modalService.dismissAll();
+    } catch (error) {
+      this.toastr.error(
+        'Apologies for the inconvenience.The error is recorded.',
+        ''
+      );
+      this.loading = false;
+    }
   }
 
   async downloadlog() {
     try {
       this.loading = true;
       const body = {
-        UserUUID: localStorage.getItem('UserUUID'),
+        UserID: localStorage.getItem('UserID'),
       };
       const headers: object[] = [];
       const options = this.commonservice.generateRequestHeaders(headers);
@@ -245,6 +282,12 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.modalService.open(agreementModal, { scrollable: true, size: 'lg' });
   }
 
+  openTestPaymentModal(
+    paymentModal: any,
+  ) {
+    this.modalService.open(paymentModal, { scrollable: true, size: 'lg' });
+  }
+
   logout2() {
     this.authService.logout();
     this.router.navigate(['system/login']);
@@ -260,7 +303,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.modalService.open(agreementModal, { scrollable: true, size: 'lg' });
   }
 
-  async agree2(paymentModal: any) {
+  async agree(paymentModal: any) {
     if (this.pname == '') {
       return;
     }
@@ -289,7 +332,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         by2: this.by2,
         name2: this.name2,
         title2: this.title2,
-        useruuid: localStorage.getItem('UserUUID'),
+        userid: localStorage.getItem('UserID'),
       };
 
       const headers: object[] = [];
@@ -320,7 +363,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
   }
 
-  agree(paymentModal: any) {
+  agree_new(paymentModal: any) {
     if (!this.pname) {
       this.toastr.error('Please fill the name in the agreement.', '', {
         timeOut: 10000,

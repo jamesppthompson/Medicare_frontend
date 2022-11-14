@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  API_END_POINT: 'https://api.medicaremagician.us/',
+  API_END_POINT: 'http://3.217.68.182:5000/api/',
   //API_END_POINT :'https://localhost:44377/'
   //  apiBaseUrl: 'http://:3000/api/v1',
    apiBaseUrl: 'api/v1',

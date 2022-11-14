@@ -401,8 +401,9 @@ export class PricingComponent implements OnInit, OnDestroy {
         let tkn = loginInfo.access_token;
         //this.authService.storeTokens(tkn);
         let h = JSON.parse(loginInfo.data);
+        console.log(h);
         localStorage.setItem('profile', JSON.stringify(h));
-        localStorage.setItem('UserUUID', h[0]._uuid);
+        localStorage.setItem('UserID', h[0]._id);
         this.profile_json = localStorage.getItem('profile');
         let profile = JSON.parse(this.profile_json);
         this.payment_status = profile[0].pstatus;
@@ -452,7 +453,7 @@ export class PricingComponent implements OnInit, OnDestroy {
         by2: this.by2,
         name2: this.name2,
         title2: this.title2,
-        useruuid: localStorage.getItem('UserUUID'),
+        userid: localStorage.getItem('UserID'),
       };
 
       const headers: object[] = [];
@@ -487,7 +488,7 @@ export class PricingComponent implements OnInit, OnDestroy {
     try {
       this.loading = true;
       const body = {
-        UserUUID: localStorage.getItem('UserUUID'),
+        UserID: localStorage.getItem('UserID'),
       };
       const headers: object[] = [];
       const options = this.commonservice.generateRequestHeaders(headers);
@@ -535,7 +536,7 @@ export class PricingComponent implements OnInit, OnDestroy {
       const body = {
         source_id: token,
         amount: this.plan_amt,
-        UserUUID: localStorage.getItem('UserUUID'),
+        UserID: localStorage.getItem('UserID'),
         planname: this.plan_name,
         id: this._id,
       };

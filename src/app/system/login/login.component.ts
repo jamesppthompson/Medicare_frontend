@@ -102,7 +102,7 @@ export class LoginComponent implements OnInit {
         this.authService.storeTokens(tkn);
         let h = JSON.parse(loginInfo.data);
         localStorage.setItem('profile', JSON.stringify(h));
-        localStorage.setItem('UserUUID', h[0]._uuid);
+        localStorage.setItem('UserID', h[0]._id);
         this.router.navigate(['general/home']);
         //this.router.navigate(['main/agreement']);
       }

@@ -79,13 +79,14 @@
 
       <div class="text-right dowload-btn">
         <!-- *ngIf="payment_status === ''" -->
-        <a href="javascript:;"
+        <!-- <a href="javascript:;"
           *ngIf="!(validSubscribedPlans && validSubscribedPlans.length > 0)"
           class="btn btn-primary mr-3"
-          (click)="openPaymentPlanModal(PaymentPlanModal)"><i class="fa fa-money"></i> Buy</a>
-        <a href="https://medicaremagiciansoftware.s3.amazonaws.com/MedicareMagician.exe"
-          target="_blank"
-          class="btn btn-primary"><i class="fa fa-download"></i> Download</a>
+          (click)="openPaymentPlanModal(PaymentPlanModal)"><i class="fa fa-money"></i> Buy</a> -->
+          <a href="javascript:;"
+          *ngIf="!(validSubscribedPlans && validSubscribedPlans.length > 0)"
+          class="btn btn-primary mr-3"
+          (click)="openTestPaymentModal(PaymentModal)"><i class="fa fa-money"></i> Buy</a>
       </div>
     </div>
   </div>
@@ -147,7 +148,7 @@
   let-d="dismiss">
 
   <div class="modal-header bg-primary">
-    <h5 class="text-white">Plan</h5>
+    <h5 class="text-white">Planaaa</h5>
     <button type="button"
       class="close text-white"
       aria-label="Close"
@@ -178,6 +179,7 @@
   </div>
 
 </ng-template>
+
 <!-- ------------------- Subscription Plans Modal : End -------------------- -->
 
 
@@ -195,18 +197,47 @@
   </div>
   <div class="modal-body">
     <div class="container-fluid">
-      <div class="row">
-        <div class="col-sm-12 m-0 p-0">
-          <form id="payment-form">
-            <div id="card-container"
-              #cardcontainer></div>
-            <button id="card-button1"
-              (click)="Payment()"
-              class="btn btn-primary text-center my-3"
-              type="button">
-              Pay
-            </button>
-          </form>
+      <div class="col-sm-12 m-0 p-0">
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label for="">Credit Card Number<span class="text-danger">*</span></label>
+              <input type="text"
+                class="form-control"
+                id="cardNumber"
+                placeholder="1111 1111 1111 1111"
+                value="4111111111111111"
+                >
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label for="">Expiration Date<span class="text-danger">*</span></label>
+              <input type="text"
+                class="form-control"
+                id="expirationDate"
+                placeholder="MMYY"
+                value="1025"
+                >
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label for="">CVV/CID<span class="text-danger">*</span></label>
+              <input type="text"
+                class="form-control"
+                id="cvv"
+                placeholder=""
+                value="999"
+                >
+            </div>
+          </div>
+          <button id="payButton"
+            (click)="Payment()"
+            class="btn btn-primary text-center my-3"
+            type="button">
+            Pay
+          </button>
         </div>
       </div>
     </div>
