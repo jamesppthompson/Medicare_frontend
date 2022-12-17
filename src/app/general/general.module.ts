@@ -8,11 +8,10 @@ import { NgxLoadingModule } from 'ngx-loading';
 import { ToastrModule } from 'ngx-toastr';
 import { MainModule } from '../main/main.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { AgreementComponent } from './agreement/agreement.component';
 import { PaymentModule } from '../payment/payment.module';
 
 @NgModule({
-  declarations: [HomeComponent, AgreementComponent],
+  declarations: [HomeComponent],
   imports: [
     CommonModule,
     GeneralRoutingModule,

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+	<meta charset="utf-8" />
+	<title>Draw Mastodon status</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="theme-color" content="#0070C0"> </head>
+<link href="https://dav.li/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<style>
+	body {
+		margin: 10px;
+	}
+	
+	ul {
+		padding: 0;
+	}
+	
+	li {
+		list-style: none;
+	}
+	
+	.mastodonStatus .panel-heading img {
+		height: 20px;
+	}
+	
+	#notConnected * {
+		display: inline-block!important;
+		width: auto!important;
+	}
+</style>
+
+<body>
+	<h1>Draw Mastodon status</h1>
+	<form id="statusForm">
+		<div class="form-group">
+			<label for="exampleInputEmail1">Mastodon status URL you want to draw</label>
+			<input type="url" class="form-control" id="statusUrl" placeholder="https://mastodon.social/@Gargron/1" />
+		</div>
+		<input type="submit" class="btn btn-default" value="Sign in and draw" />
+	</form>
+	
+	<div id="result" style="display:none">
+		<h3></h3>
+		<h4></h4>
+		<table class="table">
+			<caption>Result</caption>
+			<thead>
+				<tr>
+					<th></th>
+					<th>#</th>
+					<th>Username</th>
+				</tr>
+			</thead>
+			<tbody> </tbody>
+		</table>
+	</div>
+	
+	<script src="https://dav.li/jquery/2.1.4.js"></script>
+	<script src="./libodon.js"></script>
+	<script src="https://dav.li/bootstrap/js/bootstrap.min.js"></script>
+	<script src="https://dav.li/markupjs/1.5.21.js"></script>
+	<script>
+		var app_name = "Mastodon.tools";
+		var redirect_url = window.location.href.split("?")[0].replace("?", "");
+		console.log("redirection url>>>>>>", redirect_url);
+		var server_url = getCookie("instance");
+		var user_email = "";
+		var app = new Libodon(app_name, redirect_url);
+		 connectToMastodon(false);
+		$("#statusForm").submit(function (evt) {
+			evt.preventDefault();
+			var parser = document.createElement('a');
+			if ($("#statusUrl").val() == "") {
+				parser.href = $("#statusUrl").attr("placeholder");
+				document.cookie = "statusUrl=" + $("#statusUrl").attr("placeholder");
+			}
+			else {
+				parser.href = $("#statusUrl").val();
+				document.cookie = "statusUrl=" + $("#statusUrl").val();
+			}
+			server_url = "https://" + parser.hostname;
+			 document.cookie = "instance=" + server_url;
+			// console.log(app);
+			 console.log(server_url);
+			connectToMastodon(true);
+		});
+
+		function connectToMastodon(redirect) {
+			var connection = app.connect(server_url, user_email);
+			console.log("connection status>>>>> ", connection);
+			connection.then(conn => {
+				console.log("connection process>>>")
+				if (conn.result == 'redirect') {
+					console.log(conn.target);
+					if (redirect) {
+						window.location = conn.target;
+					}
+				}
+				else if (conn.result == 'success') {
+					// connection is successful and the app is usable
+					console.log("Connected !");
+					console.log(app.account_self());
+					if (getCookie("statusUrl")) {
+						$("#statusUrl").val(getCookie("statusUrl"));
+					}
+					$("#statusForm [type=submit]").val("Draw");
+					console.log($("#statusUrl").val());
+					app.search($("#statusUrl").val()).then(function (data) {
+						if (data.statuses) {
+							console.log(data.statuses[0].id);
+							app.reblogged_by(data.statuses[0].id).then(function (data) {
+								console.log(data);
+								var winnerNumber = Math.round(Math.random() * data.length);
+								console.log(winnerNumber);
+								console.log(data[winnerNumber]);
+								$("#result").show();
+								$("#result>h3").html(data.length + " boosts on this status");
+								$("#result>h4").html("@" + data[winnerNumber].acct + " (boost n°" + winnerNumber + ") was chosen randomly !");
+								for (var i = 0; i < data.length; i++) {
+									var result = "<tr>";
+									if (i == winnerNumber) {
+										result += "<td>X</td>"
+									}
+									else {
+										result += "<td></td>"
+									}
+									result += "<td>" + i + "</td><td>@" + data[i].acct + "</td></tr>";
+									$("#result>table>tbody").prepend(result);
+								}
+							});
+						}
+						else {
+							console.log("No status found at that URL. :(")
+						}
+					});
+				}
+				//console.log(conn);
+			});
+		}
+
+		function getCookie(cname) {
+			var name = cname + "=";
+			var decodedCookie = decodeURIComponent(document.cookie);
+			var ca = decodedCookie.split(';');
+			for (var i = 0; i < ca.length; i++) {
+				var c = ca[i];
+				while (c.charAt(0) == ' ') {
+					c = c.substring(1);
+				}
+				if (c.indexOf(name) == 0) {
+					return c.substring(name.length, c.length);
+				}
+			}
+			return "";
+		}
+	</script>
+</body>
+
+</html>

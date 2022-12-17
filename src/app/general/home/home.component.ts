@@ -4,9 +4,7 @@ import { Router } from '@angular/router';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { concat, Subscription, throwError } from 'rxjs';
-import { ISubscriptionPlan } from '../../models/subscription-plans.model';
 import { ProfileService } from '../../+state/profile/profile.service';
-import { SubscriptionPlansService } from '../../+state/subscription-plans/subscription-plans.service';
 import { ApiService } from '../../services/api.service';
 import { AuthService } from '../../services/auth.service';
 import { CommonService } from '../../services/common.service';
@@ -14,9 +12,6 @@ import { RouteConstantsService } from '../../services/route-constants/route-cons
 import { StorageService } from '../../services/storage/storage.service';
 import { AgreementRestService } from '../../services/agreement-rest/agreement-rest.service';
 import { catchError, filter, finalize, map, take, tap } from 'rxjs/operators';
-import { SubscribedPlanRestService } from 'src/app/services/subscribed-plan-rest/subscribed-plan-rest.service';
-import { SubscribedPlanService } from 'src/app/+state/subscribed-plan/subscribed-plan.service';
-import { ISubscribedPlan } from 'src/app/models/subscribed-plans.model';
 declare const Square: any;
 @Component({
   selector: 'app-home',
@@ -28,33 +23,41 @@ export class HomeComponent implements OnInit, OnDestroy {
   loading = false;
   square: any;
   card: any;
-  lastname = '';
-  firstname = '';
+
+  lastName = '';
+  firstName = '';
   npn = '';
   email = '';
+  phone = '';
+  street = '';
+  state = '';
+  zip = '';
+  website = '';
+  company= '';
+  registrationDate = '';
   profile_json: any;
-  plan_amt: any;
-  plan_name = '';
+  userExpirationDate = "2022-01-01";
+
+  amount: any;
+  planName = '';
   payment_status = '';
   _id: any;
-  pname = '';
+
+  enrollmentTableInfo = "";
+
+  pName = '';
   address = '';
   by1 = '';
   name1 = '';
   title1 = '';
-  by2 = '';
-  name2 = '';
-  title2 = '';
   crDate: any;
+
+  cardNumber= '5379931012287767';
+  expirationDate= '0326';
+  cvv= '034';
 
   showPaymentIframe = false;
 
-  subscriptions = new Subscription();
-
-  subscriptionPlans: ISubscriptionPlan[] = [];
-  selectedSubscriptionPlan: ISubscriptionPlan | null = null;
-
-  validSubscribedPlans: ISubscribedPlan[] = [];
 
   constructor(
     public commonservice: CommonService,
@@ -69,242 +72,121 @@ export class HomeComponent implements OnInit, OnDestroy {
     private readonly storageService: StorageService,
     private readonly RouteConstantsService: RouteConstantsService,
     private readonly profileService: ProfileService,
-    private readonly subscriptionPlansService: SubscriptionPlansService,
-    private readonly subscribedPlanRestService: SubscribedPlanRestService,
-    private readonly subscribedPlanService: SubscribedPlanService,
-    private readonly agreementRestService: AgreementRestService
   ) {
-    // config.backdrop = 'static';
-    // config.keyboard = false;
-    // this.subscriptions.add(
-    //   this.profileService.medicareMagicianProfile$.subscribe(
-    //     (medicareMagicianProfile) => {
-    //       this.profile_json = medicareMagicianProfile;
-    //       this.firstname = medicareMagicianProfile?.firstName || '';
-    //       this.lastname = medicareMagicianProfile?.lastName || '';
-    //       this.npn = medicareMagicianProfile?.npn || '';
-    //       this.email = medicareMagicianProfile?.email || '';
-    //       // TODO: Vivek: To get payment status flag here.
-    //       // this.payment_status = profile[0].pstatus;
-    //       this._id = medicareMagicianProfile?.userId;
-    //       this.pname = this.by1 = this.firstname + ' ' + this.lastname;
-    //       this.address =
-    //         (medicareMagicianProfile?.street || '') +
-    //         ' ' +
-    //         (medicareMagicianProfile?.state || '') +
-    //         ' ' +
-    //         (medicareMagicianProfile?.zip || '');
-    //       this.crDate = new Date();
-    //     }
-    //   )
-    // );
+
+    this.setUserInfo(localStorage.getItem('UserID'));
+
     this.profile_json = localStorage.getItem('profile');
     let profile = JSON.parse(this.profile_json);
-    this.firstname = profile[0].first_name;
-    this.lastname = profile[0].last_name;
+    console.log(profile);
+    this.firstName = profile[0].firstName;
+    this.lastName = profile[0].lastName;
     this.npn = profile[0].npn;
+    this.phone = profile[0].phone;
+    this.state = profile[0].state;
+    this.street = profile[0].street;
     this.email = profile[0].email;
-    this.payment_status = profile[0].pstatus;
+    this.website = profile[0].website;
+    this.zip = profile[0].zip;
+    this.company = profile[0].company;
+    this.registrationDate = profile[0].registrationDate;
+
+    // this.payment_status = profile[0].pstatus;
     this._id = profile[0]._id.toString();
-    this.pname = profile[0].first_name + ' ' + profile[0].last_name;
+    this.pName = profile[0].firstName + ' ' + profile[0].lastName;
     this.address =
       profile[0].street + ' ' + profile[0].state + ' ' + profile[0].zip;
-    this.by1 = profile[0].first_name + ' ' + profile[0].last_name;
+    this.by1 = profile[0].firstName + ' ' + profile[0].lastName;
     this.crDate = new Date();
+
+      
+    this.setPayListInfo(profile[0].enrollment)
+    
+    // agreement and pay info
   }
-
+  
   ngOnInit(): void {
-    // this.initSubscriptionPlans();
-
-    // this.subscribedPlanService.loadSubscribedPlans(true);
-
-    // this.subscriptions.add(
-    //   this.subscribedPlanService.validSubscribedPlan$.subscribe(
-    //     (validSubscribedPlans) => {
-    //       this.validSubscribedPlans = validSubscribedPlans || [];
-    //     }
-    //   )
-    // );
+    $("#enrollmentTableInfo").html(this.enrollmentTableInfo);
+   
   }
   ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
   }
 
-  // private initSubscriptionPlans() {
-  //   this.subscriptions.add(
-  //     this.subscriptionPlansService.subscriptionPlans$.subscribe(
-  //       (subscriptionPlans) => (this.subscriptionPlans = subscriptionPlans)
-  //     )
-  //   );
-  // }
+  setPayListInfo(enrollmentInfo: any) {
+    console.log(enrollmentInfo);
+    this.enrollmentTableInfo = '';
+    enrollmentInfo?.forEach((
+      element: { 
+        enrollmentDate: string | number | Date; 
+        planName: string; 
+        name1: string; 
+        amount: string; 
+        paidStatus: string; 
+      }) => {
+        let d = new Date(element.enrollmentDate);
+        if(element.planName === "Freely") d.setDate(d.getDate() + 15);
+        else if(element.planName === "Monthly") d.setMonth(d.getMonth() + 1);
+        else if(element.planName === "Yearly") d.setMonth(d.getMonth() + 12);
+        let enrollmentExpirationDate = d.toISOString().slice(0, 10)
+        
+        this.enrollmentTableInfo += "<tr><td>" + element.name1 +"</td><td>" + element.enrollmentDate +"</td><td>" + element.planName +"</td><td>$" + element.amount +"</td><td>" + enrollmentExpirationDate + "</td><td>" +element.paidStatus + "</td></tr>"
+        
+        const e = new Date(enrollmentExpirationDate);
+        const f = new Date(this.userExpirationDate);
+        if(f < e) 
+          this.userExpirationDate = enrollmentExpirationDate;
+      });
+  }
 
-  // async main() {
-  //   const APPLICATION_ID = 'sandbox-sq0idb-IBMmlwqNH4Cu1xSS4zkYBQ';
-  //   const LOCATION_ID = 'L07YM6DY7HZYT';
-
-  //   const payments = Square.payments(APPLICATION_ID, LOCATION_ID);
-  //   this.card = await payments.card();
-  //   await this.card.attach('#card-container');
-  // }
-
-  // async SquarePaymentProcess() {
-  //   try {
-  //     const result = await this.card.tokenize();
-  //     if (result.status === 'OK') {
-  //       this.ConfirmPayment(result.token);
-  //     }
-  //   } catch (e) {
-  //     //this.toastr.error(e, '');
-  //   }
-  // }
-
-  async ConfirmPayment(token: any) {
+  async setUserInfo(userId: any) {
     try {
-      this.submitted = true;
-      const body = {
-        source_id: token,
-        amount: this.plan_amt,
-        UserID: localStorage.getItem('UserID'),
-        planname: this.plan_name,
-        id: this._id,
-      };
-      //localStorage.setItem("profile", JSON.stringify(loginInfo.data));
+      const body = JSON.stringify({
+        userId
+      });
+
       const headers: object[] = [];
       const options = this.commonservice.generateRequestHeaders(headers);
       const loginInfo = await this.commonservice.SubmitPostFormData(
-        this.api.paymentAPI.checkout_square,
+        this.api.systemAPI.UserInfo,
         body,
         options
       );
       if (loginInfo.status != '1') {
-        this.toastr.error(loginInfo.message, '');
+        this.toastr.error(loginInfo.message, '', {timeOut: 3000});
       } else {
-        if (loginInfo.status != '1') {
-          this.toastr.error('Payment is not complete ', '');
-        } else {
-          this.toastr.info('Payment Successful', '');
-          this.payment_status = 'Paid';
-          // window.open(
-          //   'https://medicaremagiciansoftware.s3.amazonaws.com/MedicareMagician.exe',
-          //   '_blank'
-          // );
-        }
+        let tkn = loginInfo.access_token;
+        this.authService.storeTokens(tkn);
+        let h = JSON.parse(loginInfo.data);
+        localStorage.setItem('profile', JSON.stringify(h));
+        localStorage.setItem('UserID', h[0]._id);
       }
       this.loading = false;
-      this.modalService.dismissAll();
     } catch (error) {
       this.toastr.error(
         'Apologies for the inconvenience.The error is recorded.',
-        ''
+        '',
+        {timeOut: 3000}
       );
       this.loading = false;
     }
   }
 
-  async Payment() {
-    this.loading = true;
-    // this.SquarePaymentProcess();
-    const cardNumber = $("#cardNumber").val();
-    const cvv = $("#cvv").val();
-    const expirationDate = $("#expirationDate").val();
-    
-    try {
-      this.submitted = true;
-      const body = {
-        amount: 1.00,
-        userId: localStorage.getItem('UserID'),
-        cardNumber: cardNumber,
-        expirationDate: expirationDate,
-        cvv: cvv,
-        planName: this.plan_name,
-      };
-      //localStorage.setItem("profile", JSON.stringify(loginInfo.data));
-      const headers: object[] = [];
-      const options = this.commonservice.generateRequestHeaders(headers);
-      const payInfo = await this.commonservice.SubmitPostFormData(
-        this.api.paymentAPI.Pay,
-        body,
-        options
-      );
-      if (payInfo.status != '1') {
-        this.toastr.error(payInfo.message, '');
-      } else {
-        this.toastr.info('Payment Successful', '');
-        this.payment_status = 'Paid';
-      }
-      this.loading = false;
-      this.modalService.dismissAll();
-    } catch (error) {
-      this.toastr.error(
-        'Apologies for the inconvenience.The error is recorded.',
-        ''
-      );
-      this.loading = false;
-    }
+  openPaymentPlanModal(paymentPlanModal: any) {
+    this.modalService.open(paymentPlanModal, { centered: true });
   }
-
-  async downloadlog() {
-    try {
-      this.loading = true;
-      const body = {
-        UserID: localStorage.getItem('UserID'),
-      };
-      const headers: object[] = [];
-      const options = this.commonservice.generateRequestHeaders(headers);
-      const loginInfo = await this.commonservice.SubmitPostFormData(
-        this.api.systemAPI.Downloadlog,
-        body,
-        options
-      );
-      this.loading = false;
-    } catch (error) {
-      this.loading = false;
-    }
-  }
-
-  openPaymentPlanModal(paymentplanModal: any) {
-    this.title1 = '';
-    this.name1 = '';
-    this.modalService.open(paymentplanModal, { centered: true });
-  }
-
-  openPaymentModal2(agreementModal: any, amt: any, planname: any) {
-    this.plan_amt = amt;
-    this.plan_name = planname;
-    this.modalService.open(agreementModal, { scrollable: true, size: 'lg' });
-  }
-
-  openPaymentModal(
+  
+  openAgreementModal(
     agreementModal: any,
-    selectedSubscriptionPlan: ISubscriptionPlan
+    amount: any,
+    planName: any
   ) {
-    this.selectedSubscriptionPlan = selectedSubscriptionPlan;
+    this.amount = amount;
+    this.planName = planName;
     this.modalService.open(agreementModal, { scrollable: true, size: 'lg' });
   }
 
-  openTestPaymentModal(
-    paymentModal: any,
-  ) {
-    this.modalService.open(paymentModal, { scrollable: true, size: 'lg' });
-  }
-
-  logout2() {
-    this.authService.logout();
-    this.router.navigate(['system/login']);
-  }
-
-  logout() {
-    this.storageService.clearStorage();
-    this.profileService.reset();
-    this.router.navigate([this.RouteConstantsService.ROUTES_PATH.LOGIN_PAGE]);
-  }
-
-  openAgreementModal(agreementModal: any) {
-    this.modalService.open(agreementModal, { scrollable: true, size: 'lg' });
-  }
-
-  async agree(paymentModal: any) {
-    if (this.pname == '') {
+  openPaymentModel(paymentModel: any) {
+    if (this.pName == '') {
       return;
     }
     if (this.address == '') {
@@ -319,134 +201,160 @@ export class HomeComponent implements OnInit, OnDestroy {
     if (this.title1 == '') {
       return;
     }
+    this.modalService.open(paymentModel, { scrollable: true, size: 'lg' });
+  }
 
+
+  
+  async Pay() {
+    if(!this.checkCanPay()) {
+      return false;
+      throw "error";
+    }
+
+    this.loading = true;    
     try {
-      this.modalService.dismissAll();
-      this.loading = true;
       const body = {
-        pName: this.pname,
+        pName: this.pName,
         address: this.address,
         by1: this.by1,
         name1: this.name1,
         title1: this.title1,
-        by2: this.by2,
-        name2: this.name2,
-        title2: this.title2,
-        userid: localStorage.getItem('UserID'),
+        
+        amount: 1.00,
+        userId: localStorage.getItem('UserID'),
+        cardNumber: this.cardNumber,
+        expirationDate: this.expirationDate,
+        cvv: this.cvv,
+        planName: this.planName,
       };
 
       const headers: object[] = [];
       const options = this.commonservice.generateRequestHeaders(headers);
-
-      const loginInfo = await this.commonservice.SubmitPostFormData(
-        this.api.systemAPI.AcceptAgreement,
+      const payInfo = await this.commonservice.SubmitPostFormData(
+        this.api.paymentAPI.Pay,
         body,
         options
       );
 
-      if (loginInfo.status != '1') {
-        this.toastr.error(loginInfo.message, '');
-      } else {
-        this.downloadlog();
-        // this.modalService.open(paymentModal, { centered: true });
-        // this.main();
-
-        this.showPaymentIframe = true;
-      }
       this.loading = false;
+      //this.modalService.dismissAll();
+      if (payInfo.status != '1') {
+        this.toastr.error(payInfo.message, '', {timeOut: 3000});
+        
+      } else {
+        this.toastr.info('Payment Successful', '', {timeOut: 3000});
+        this.payment_status = 'Paid';
+        this.setPayListInfo(payInfo?.data?.enrollment);
+        $("#enrollmentTableInfo").html(this.enrollmentTableInfo);
+        this.submitted = true;
+        this.modalService.dismissAll();
+      }
+      return false;
     } catch (error) {
       this.toastr.error(
         'Apologies for the inconvenience.The error is recorded.',
-        ''
+        '',
+        {timeOut: 3000}
       );
       this.loading = false;
+      return false;
     }
   }
 
-  agree_new(paymentModal: any) {
-    if (!this.pname) {
-      this.toastr.error('Please fill the name in the agreement.', '', {
-        timeOut: 10000,
-      });
-      return;
-    }
-
-    if (!this.address) {
-      this.toastr.error('Please fill the address in the agreement.', '', {
-        timeOut: 10000,
-      });
-      return;
-    }
-
-    if (!this.by1) {
-      return;
-    }
-
-    if (!this.name1) {
-      return;
-    }
-
-    if (!this.title1) {
-      this.toastr.error('Please fill the Title in the agreement.', '', {
-        timeOut: 10000,
-      });
-      return;
-    }
-
-    this.modalService.dismissAll();
-    this.loading = true;
-
-    const body = {
-      pname: this.pname,
-      address: this.address,
-      by1: this.by1,
-      name1: this.name1,
-      title1: this.title1,
-      by2: this.by2 || null,
-      name2: this.name2 || null,
-      title2: this.title2 || null,
-    };
-
-    this.loading = true;
-
-    const agreementApi$ = this.agreementRestService.createAgreement(body).pipe(
-      catchError((createAgreementErrRes) => {
-        this.toastr.error(createAgreementErrRes.error.message, '', {
-          timeOut: 10000,
-        });
-        return throwError(createAgreementErrRes);
-      })
-    );
-
-    const createSubscribedPlanApi$ = this.subscribedPlanRestService
-      .createSubscribedPlan(this.selectedSubscriptionPlan!.id)
-      .pipe(
-        tap((d) =>
-          this.subscribedPlanService.setSubscribedPlanForProcessingPayment(d)
-        )
-      );
-
-    /* const waitForSubcribedPlanLoaded$ = this.subscribedPlanService.loaded$.pipe(
-      filter((item) => item),
-      take(1)
-    ); */
-
-    concat(
-      agreementApi$,
-      createSubscribedPlanApi$ /* , waitForSubcribedPlanLoaded$ */
-    )
-      .pipe(finalize(() => (this.loading = false)))
-      .subscribe(
-        () => {},
-        () => {},
-        () => (this.showPaymentIframe = true)
-      );
+  logout() {
+    this.storageService.clearStorage();
+    this.profileService.reset();
+    this.router.navigate([this.RouteConstantsService.ROUTES_PATH.LOGIN_PAGE]);
   }
 
-  getSubscriptionPlanName() {
-    const subscriptionPlan = this.subscriptionPlans.find(
-      (s) => s.id === this.validSubscribedPlans[0].subscriptionPlanId
-    );
-    return subscriptionPlan ? subscriptionPlan.name : '';
+  
+
+  checkCanPay() {
+    if (this.pName == '' || this.address == '' || this.by1 == '' || this.name1 == '' || this.title1 == '') {
+      return false;
+    }
+    if(this.cardNumber == '' || this.cvv == '' || this.expirationDate == '')
+      return false;
+
+    return true;
   }
+
+  // agree_new(paymentModal: any) {
+  //   if (!this.pname) {
+  //     this.toastr.error('Please fill the name in the agreement.', '', {
+  //       timeOut: 10000,
+  //     });
+  //     return;
+  //   }
+
+  //   if (!this.address) {
+  //     this.toastr.error('Please fill the address in the agreement.', '', {
+  //       timeOut: 10000,
+  //     });
+  //     return;
+  //   }
+
+  //   if (!this.by1) {
+  //     return;
+  //   }
+
+  //   if (!this.name1) {
+  //     return;
+  //   }
+
+  //   if (!this.title1) {
+  //     this.toastr.error('Please fill the Title in the agreement.', '', {
+  //       timeOut: 10000,
+  //     });
+  //     return;
+  //   }
+
+  //   this.modalService.dismissAll();
+  //   this.loading = true;
+
+  //   const body = {
+  //     pname: this.pname,
+  //     address: this.address,
+  //     by1: this.by1,
+  //     name1: this.name1,
+  //     title1: this.title1,
+  //   };
+
+  //   this.loading = true;
+
+  //   const agreementApi$ = this.agreementRestService.createAgreement(body).pipe(
+  //     catchError((createAgreementErrRes) => {
+  //       this.toastr.error(createAgreementErrRes.error.message, '', {
+  //         timeOut: 10000,
+  //       });
+  //       return throwError(createAgreementErrRes);
+  //     })
+  //   );
+
+  //   const createSubscribedPlanApi$ = this.subscribedPlanRestService
+  //     .createSubscribedPlan(this.selectedSubscriptionPlan!.id)
+  //     .pipe(
+  //       tap((d) =>
+  //         this.subscribedPlanService.setSubscribedPlanForProcessingPayment(d)
+  //       )
+  //     );
+
+  //   /* const waitForSubcribedPlanLoaded$ = this.subscribedPlanService.loaded$.pipe(
+  //     filter((item) => item),
+  //     take(1)
+  //   ); */
+
+  //   concat(
+  //     agreementApi$,
+  //     createSubscribedPlanApi$ /* , waitForSubcribedPlanLoaded$ */
+  //   )
+  //     .pipe(finalize(() => (this.loading = false)))
+  //     .subscribe(
+  //       () => {},
+  //       () => {},
+  //       () => (this.showPaymentIframe = true)
+  //     );
+  // }
+
 }

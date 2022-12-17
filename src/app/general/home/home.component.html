@@ -4,89 +4,199 @@
 
 <app-menutop></app-menutop>
 
-<section class="ftco-section contact-section"
+
+
+<!-- /.container-fluid -->
+
+
+<section class="general-home-body"
   id="contact-section">
   <!-- start -->
-  <div class="d-flex justify-content-center align-items-center">
-    <div class="col-12 col-md-10 col-lg-10 col-xl-5 detail-box">
-      <h2>Welcome {{ firstname }}</h2>
-      <div class="mb-3"
-        style="font-size: medium">
-        <div class="row">
-          <div class="col">
+  <div class="row">
+
+    <div class="col-lg-4">
+      <!-- Collapsable Card Example -->
+      <div class="card shadow mb-4">
+          <!-- Card Header - Accordion -->
+        <a href="#collapseCardInfo" class="d-block card-header py-3" data-toggle="collapse"
+            role="button" aria-expanded="true" aria-controls="collapseCardInfo">
+            <h4 class="mt-0 text-center">User Info</h4>
+        </a>
+        <!-- Card Content - Collapse -->
+        <div class="collapse show" id="collapseCardInfo">
+          <div class="card-body" style="font-size: medium">
             <div class="row">
-              <div class="col-md-12">First Name:</div>
-              <div class="col-md-12">
-                <strong>{{ firstname }}</strong>
+              <div class="col-6">
+                <div class="input-group user-info"> 
+                  <input
+                    type="text" 
+                    value="{{ firstName }}"
+                    disabled> 
+                    <label>First Name:</label> 
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="input-group user-info"> 
+                  <input 
+                    type="text" 
+                    value="{{ lastName }}"
+                    disabled> 
+                    <label>Last Name:</label> 
+                </div>
               </div>
             </div>
-          </div>
-          <div class="col">
             <div class="row">
-              <div class="col-md-12">Last Name:</div>
-              <div class="col-md-12">
-                <strong>{{ lastname }}</strong>
+              <div class="col-6">
+                <div class="input-group user-info"> 
+                  <input
+                    type="text" 
+                    value="{{ email }}"
+                    disabled> 
+                    <label>Email:</label> 
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="input-group user-info"> 
+                  <input 
+                    type="text" 
+                    value="{{ street }}"
+                    disabled> 
+                    <label>Street:</label> 
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-6">
+                <div class="input-group user-info"> 
+                  <input
+                    type="text" 
+                    value="{{ state }}"
+                    disabled> 
+                    <label>State:</label> 
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="input-group user-info"> 
+                  <input 
+                    type="text" 
+                    value="{{ zip }}"
+                    disabled> 
+                    <label>Zip:</label> 
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-6">
+                <div class="input-group user-info"> 
+                  <input
+                    type="text" 
+                    value="{{ state }}"
+                    disabled> 
+                    <label>Phone:</label> 
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="input-group user-info"> 
+                  <input 
+                    type="text" 
+                    value="{{ npn }}"
+                    disabled> 
+                    <label>NPN:</label> 
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-6">
+                <div class="input-group user-info"> 
+                  <input
+                    type="text" 
+                    value="{{ company }}"
+                    disabled> 
+                    <label>Company:</label> 
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="input-group user-info"> 
+                  <input 
+                    type="text" 
+                    value="{{ website }}"
+                    disabled> 
+                    <label>Website:</label> 
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="input-group user-info"> 
+                  <input 
+                    type="text" 
+                    value="{{ registrationDate }}"
+                    disabled> 
+                    <label>Registration Date:</label> 
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-
-      <div class="mb-3"
-        style="font-size: medium">
-        <div class="row">
-          <div class="col">
-            <div class="row">
-              <div class="col-md-12">NPN#</div>
-              <div class="col-md-12">
-                <strong>{{ npn }}</strong>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="row">
-              <div class="col-md-12">Email:</div>
-              <div class="col-md-12">
-                <strong> {{ email }}</strong>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="mb-3"
-        style="font-size: medium"
-        *ngIf="validSubscribedPlans && validSubscribedPlans.length > 0">
-        <div class="row">
-          <div class="col">
-            <div class="row">
-              <div class="col-md-12">Subscription Plan:</div>
-              <div class="col-md-12">
-                <strong>{{ getSubscriptionPlanName()}}</strong>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="row">
-              <div class="col-md-12">Subscription Validity:</div>
-              <div class="col-md-12">
-                <strong>{{validSubscribedPlans[0].subscriptionEndDate | date}}</strong>
-              </div>
+    </div>
+  
+    <div class="col">
+      <div class="col-lg-12" >
+        <div class="card shadow mb-4">
+          <a href="#collapseCardView" class="d-block card-header py-3" data-toggle="collapse"
+              role="button" aria-expanded="true" aria-controls="collapseCardView">
+              <h4 class="mt-0 text-center">Your Medicare Magician Enrollment Expiration Date is <b>{{ userExpirationDate }}</b>.</h4>
+          </a>
+          <div class="collapse show " id="collapseCardView">
+            <div class="card-body">
+              <a target="_blank" href="https://digitalcompany.us">
+                <div class="row">
+                  <div class="col-md-12 col-lg-6 pt-5 pb-5 d-flex align-items-center">
+                    <h4>go to digitalcompany.us => </h4>
+                  </div>
+                  <div class="col-md-12 col-lg-6 pt-2 d-flex align-items-center">
+                    <img src="assets/img/work-mac.png"
+                    alt="">
+                  </div>
+                </div>
+              </a>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="text-right dowload-btn">
-        <!-- *ngIf="payment_status === ''" -->
-        <!-- <a href="javascript:;"
-          *ngIf="!(validSubscribedPlans && validSubscribedPlans.length > 0)"
-          class="btn btn-primary mr-3"
-          (click)="openPaymentPlanModal(PaymentPlanModal)"><i class="fa fa-money"></i> Buy</a> -->
-          <a href="javascript:;"
-          *ngIf="!(validSubscribedPlans && validSubscribedPlans.length > 0)"
-          class="btn btn-primary mr-3"
-          (click)="openTestPaymentModal(PaymentModal)"><i class="fa fa-money"></i> Buy</a>
+      <div class="col-lg-12" >
+        <div class="card shadow mb-4">
+          <a href="#collapseCardList" class="d-block card-header py-3" data-toggle="collapse"
+              role="button" aria-expanded="true" aria-controls="collapseCardList">
+              <h4 class="mt-0 text-center">Agreement & Pay Info</h4>
+          </a>
+          <div class="collapse show" id="collapseCardList">
+            <div class="card-body">
+              <div class="">
+                <!-- <h4>Your Medicare Magician Enrollment Expiration Date is <b id="expirationDate">2022-12-10</b>.</h4> -->
+              </div>
+              <div class="row">
+                <div class="col-md-12 text-center"> <input type="button" (click)="openPaymentPlanModal(PaymentPlanModal)" value="Add Subscription" class="btn btn-success placeicon btn_font"> </div>
+              </div>
+              <div class="table-responsive" style="margin-top: 5px;">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                      <tr>
+                        <th>Signature</th>
+                        <th>Enrollment Date </th>
+                        <th>Plan</th>
+                        <th>Amount</th>
+                        <th>Enrollment Expiration Date</th>
+                        <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody id="enrollmentTableInfo">
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -95,12 +205,12 @@
 <!--
   Payment work-->
 
-<!--
+
 <ng-template #PaymentPlanModal
   let-c="close"
   let-d="dismiss">
   <div class="modal-header bg-primary">
-    <h5 class="text-white">Plan</h5>
+    <h5 class="text-white">Payment Schedule</h5>
     <button type="button"
       class="close text-white"
       aria-label="Close"
@@ -119,7 +229,7 @@
               <li>$3,000 annual lump sum subscription</li>
             </ul>
             <button class="btn btn-block"
-              (click)="openPaymentModal(AgreementModal, 3000, 'Yearly')"
+              (click)="openAgreementModal(AgreementModal, 3000, 'Yearly')"
               (click)="d('Cross click')">
               Buy
             </button>
@@ -130,114 +240,11 @@
               <li>$300 monthly annual subscription</li>
             </ul>
             <button class="btn btn-block"
-              (click)="openPaymentModal(AgreementModal, 3000, 'Monthly')"
+              (click)="openAgreementModal(AgreementModal, 3000, 'Monthly')"
               (click)="d('Cross click')">
               Buy
             </button>
           </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</ng-template>
--->
-
-<!-- ------------------ Subscription Plans Modal : Start ------------------- -->
-<ng-template #PaymentPlanModal
-  let-c="close"
-  let-d="dismiss">
-
-  <div class="modal-header bg-primary">
-    <h5 class="text-white">Planaaa</h5>
-    <button type="button"
-      class="close text-white"
-      aria-label="Close"
-      (click)="d('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-
-  <div class="modal-body">
-    <div class="container">
-      <div class="row d-flex justify-content-center align-items-center">
-        <div class="col-md-12 p-0 m-0">
-          <div class="list-box"
-            *ngFor="let sp of subscriptionPlans">
-            <h4>{{sp.name}}:</h4>
-            <ul>
-              <li>{{sp.description}}</li>
-            </ul>
-            <button class="btn btn-block"
-              (click)="openPaymentModal(AgreementModal, sp)"
-              (click)="d('Cross click')">
-              Buy
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-</ng-template>
-
-<!-- ------------------- Subscription Plans Modal : End -------------------- -->
-
-
-<ng-template #PaymentModal
-  let-c="close"
-  let-d="dismiss">
-  <div class="modal-header bg-primary">
-    <h5 class="text-white">Buy</h5>
-    <button type="button"
-      class="close text-white"
-      aria-label="Close"
-      (click)="d('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <div class="container-fluid">
-      <div class="col-sm-12 m-0 p-0">
-        <div class="row">
-          <div class="col-lg-6">
-            <div class="form-group">
-              <label for="">Credit Card Number<span class="text-danger">*</span></label>
-              <input type="text"
-                class="form-control"
-                id="cardNumber"
-                placeholder="1111 1111 1111 1111"
-                value="4111111111111111"
-                >
-            </div>
-          </div>
-          <div class="col-lg-6">
-            <div class="form-group">
-              <label for="">Expiration Date<span class="text-danger">*</span></label>
-              <input type="text"
-                class="form-control"
-                id="expirationDate"
-                placeholder="MMYY"
-                value="1025"
-                >
-            </div>
-          </div>
-          <div class="col-lg-6">
-            <div class="form-group">
-              <label for="">CVV/CID<span class="text-danger">*</span></label>
-              <input type="text"
-                class="form-control"
-                id="cvv"
-                placeholder=""
-                value="999"
-                >
-            </div>
-          </div>
-          <button id="payButton"
-            (click)="Payment()"
-            class="btn btn-primary text-center my-3"
-            type="button">
-            Pay
-          </button>
         </div>
       </div>
     </div>
@@ -270,8 +277,8 @@
             <input name=""
               type="text"
               class="input"
-              [(ngModel)]="pname"
-              [ngClass]="{ 'is-invalid': pname == '' }" />, with offices at<BR />
+              [(ngModel)]="pName"
+              [ngClass]="{ 'is-invalid': pName == '' }" />, with offices at<BR />
             <input name=""
               type="text"
               class="input2"
@@ -386,7 +393,7 @@
           <p>
             Licensor shall use its best efforts to deliver the Licensed Programs
             promptly after receipt of the purchase order by way of email and
-            download.
+            .
           </p>
         </div>
 
@@ -618,29 +625,7 @@
                   [ngClass]="{ 'is-invalid': title1 == '' }" />
               </p>
             </div>
-            <div class="rightpannal d-none">
-              <p>LICENSEE</p>
-              <p>
-                By <input name=""
-                  type="text"
-                  class="input"
-                  [(ngModel)]="by2" />
-              </p>
-              <p>
-                Name
-                <input name=""
-                  type="text"
-                  class="input"
-                  [(ngModel)]="name2" />
-              </p>
-              <p>
-                Title
-                <input name=""
-                  type="text"
-                  class="input"
-                  [(ngModel)]="title2" />
-              </p>
-            </div>
+            
           </div>
         </div>
 
@@ -654,18 +639,17 @@
             cellpadding="0"
             cellspacing="0">
             <tr>
-              <!-- TODO: Vivek: To make the below segment dynamic -->
-              <div *ngIf="plan_name === 'Free'"
+              <div *ngIf="planName === 'Free'"
                 style="padding: 10px">
                 <strong>Free Trial</strong> <br />
                 Use the software for free for 15 days.
               </div>
-              <div *ngIf="plan_name === 'Yearly'"
+              <div *ngIf="planName === 'Yearly'"
                 style="padding: 10px">
                 <strong>Yearly Subscription</strong> <br />
                 $3,000 annual lump sum subscription.
               </div>
-              <div *ngIf="plan_name === 'Monthly'"
+              <div *ngIf="planName === 'Monthly'"
                 style="padding: 10px">
                 <strong>Monthly Subscription</strong> <br />
                 $300 monthly annual subscription.
@@ -682,15 +666,106 @@
           </p>
         </div>
         <div class="mt-2 col-12 mb-4">
-          <input name="submit"
+          <input name="submit" *ngIf="pName !== '' && address !== '' && by1 !== '' && name1 !== '' && title1 !== ''"
             type="button"
-            value="Submit"
+            value="Next"
             class="btn btn-primary"
-            (click)="agree(PaymentModal)" />
+            (click)="openPaymentModel(PaymentModal)"
+            (click)="d('Cross click')"
+            />
         </div>
       </div>
     </div>
   </div>
 </ng-template>
+
+<ng-template #PaymentModal
+  let-c="close"
+  let-d="dismiss">
+  <div class="modal-header bg-primary">
+    <h5 class="text-white">Buy</h5>
+    <button type="button"
+      class="close text-white"
+      aria-label="Close"
+      (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="container-fluid">
+      <div class="col-sm-12 m-0 p-0">
+        <!-- <div class="col-lg-12" > -->
+          <div class="card shadow mb-4">
+            <a href="#collapseCardPay" class="d-block card-header py-3" data-toggle="collapse"
+                role="button" aria-expanded="true" aria-controls="collapseCardPay">
+                <h3 class="mt-0 text-center">Enter your card details to pay</h3>
+            </a>
+            <div class="collapse show" id="collapseCardPay">
+              <div class="card-body">
+                <div id="menu2" class="tab-pane in active">
+                  <div class="row justify-content-center">
+                    <div class="col-11">
+                      <!-- payment card start -->
+                      <div class="form-card">
+                        <h5 class="mt-0 mb-4 text-center"></h5>
+                          <div class="row">
+                            <div class="col-12">
+                              <div class="input-group">
+                                <input 
+                                  type="text" 
+                                  placeholder="0000 0000 0000 0000" 
+                                  minlength="10" 
+                                  maxlength="25"  
+                                  [(ngModel)]="cardNumber"
+                                  [ngClass]="{ 'is-invalid': cardNumber == '' }"> 
+                                  <label>CARD NUMBER</label> 
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-6">
+                              <div class="input-group"> 
+                                <input
+                                  type="text" 
+                                  placeholder="MM/YY" 
+                                  minlength="4" 
+                                  maxlength="4" 
+                                  [(ngModel)]="expirationDate"
+                                  [ngClass]="{ 'is-invalid': expirationDate == '' }"> 
+                                  <label>CARD EXPIRY</label> 
+                              </div>
+                            </div>
+                            <div class="col-6">
+                              <div class="input-group"> 
+                                <input 
+                                  type="password" 
+                                  placeholder="&#9679;&#9679;&#9679;" 
+                                  class="placeicon" 
+                                  minlength="3" 
+                                  maxlength="4" 
+                                  [(ngModel)]="cvv"
+                                  [ngClass]="{ 'is-invalid': cvv == '' }"> 
+                                  <label>CVV</label> 
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-12"> <input type="button" (click)="Pay()" value="Pay $ 1.00" class="btn btn-success placeicon  btn_font"> </div>
+                          </div>
+                      </div>
+                      <!-- payment card end -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        <!-- </div> -->
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+
 
 <app-payment [showPaymentIframe]="showPaymentIframe"></app-payment>

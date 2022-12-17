@@ -26,10 +26,10 @@
                   <label for="">First Name <span class="text-danger">*</span></label>
                   <input type="text"
                     class="form-control"
-                    formControlName="first_name"
+                    formControlName="firstName"
                     id="name"
                     placeholder="First Name"
-                    [ngClass]="{'is-invalid': submitted && frmCtrl.first_name.errors}">
+                    [ngClass]="{'is-invalid': submitted && frmCtrl.firstName.errors}">
                 </div>
               </div>
               <div class="col-lg-6">
@@ -38,9 +38,9 @@
                   <input type="text"
                     class="form-control"
                     id="name"
-                    formControlName="last_name"
+                    formControlName="lastName"
                     placeholder="Last Name"
-                    [ngClass]="{'is-invalid': submitted && frmCtrl.last_name.errors}">
+                    [ngClass]="{'is-invalid': submitted && frmCtrl.lastName.errors}">
                 </div>
               </div>
               <div class="col-6">
@@ -112,11 +112,13 @@
                   <label for="">Phone <span class="text-danger">*</span></label>
                   <input type="text"
                     class="form-control"
-                    appPhoneMask
-                    formControlName="phone_no"
+                    (keypress)="numberOnly($event)"
+                    formControlName="phone"
                     id="name"
+                    minlength="10" 
+                    maxlength="10"
                     placeholder="Phone"
-                    [ngClass]="{'is-invalid': submitted && frmCtrl.phone_no.errors}">
+                    [ngClass]="{'is-invalid': submitted && frmCtrl.phone.errors}">
                 </div>
               </div>
               <div class="col-lg-6">
@@ -136,7 +138,7 @@
                   <label for="">Company</label>
                   <input type="text"
                     class="form-control"
-                    formControlName="street"
+                    formControlName="company"
                     id="subject"
                     placeholder="Company">
                 </div>

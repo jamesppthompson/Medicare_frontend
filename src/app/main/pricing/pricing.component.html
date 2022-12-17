@@ -182,10 +182,10 @@
                           <label for="">First Name <span class="text-danger">*</span></label>
                           <input type="text"
                             class="form-control"
-                            formControlName="first_name"
+                            formControlName="firstName"
                             id="name"
                             placeholder="First Name"
-                            [ngClass]="{'is-invalid': submitted && frmCtrl.first_name.errors}">
+                            [ngClass]="{'is-invalid': submitted && frmCtrl.firstName.errors}">
                         </div>
                       </div>
                       <div class="col-lg-6">
@@ -194,9 +194,9 @@
                           <input type="text"
                             class="form-control"
                             id="name"
-                            formControlName="last_name"
+                            formControlName="lastName"
                             placeholder="Last Name"
-                            [ngClass]="{'is-invalid': submitted && frmCtrl.last_name.errors}">
+                            [ngClass]="{'is-invalid': submitted && frmCtrl.lastName.errors}">
                         </div>
                       </div>
                       <div class="col-6">
@@ -269,11 +269,13 @@
                           <label for="">Phone <span class="text-danger">*</span></label>
                           <input type="text"
                             class="form-control"
-                            appPhoneMask
-                            formControlName="phone_no"
+                            (keypress)="numberOnly($event)"
+                            formControlName="phone"
                             id="name"
+                            minlength="10" 
+                            maxlength="10"
                             placeholder="Phone"
-                            [ngClass]="{'is-invalid': submitted && frmCtrl.phone_no.errors}">
+                            [ngClass]="{'is-invalid': submitted && frmCtrl.phone.errors}">
                         </div>
                       </div>
                       <div class="col-lg-6">
@@ -293,7 +295,7 @@
                           <label for="">Company</label>
                           <input type="text"
                             class="form-control"
-                            formControlName="street"
+                            formControlName="company"
                             id="subject"
                             placeholder="Company">
                         </div>
@@ -331,7 +333,7 @@
         </div>
         <div class="clearfix "></div>
 
-        <div class="price-box "
+        <!-- <div class="price-box "
           *ngIf="stepname=='aggreement'">
           <div class="price-header">
             <div class="row">
@@ -348,7 +350,6 @@
           <div class="price-body">
             <div class=" d-flex justify-content-end">
               <div class="col-md-10 price-box2">
-                <!-- text -->
                 <div class="col-12">
                   <div class="container mt-3 agreement">
                     <div class="row">
@@ -800,17 +801,6 @@
                                 $300 monthly annual subscription.
                               </div>
                             </td>
-                            <!--
-                                    <td style="width:25%">ANNUAL LICENSE FEE<br />
-                                        $3,000
-                                    </td>
-                                    <td style="width:25%">&nbsp;</td>
-                                    <td style="width:25%">MAINTENANCE FEE<br />
-                                        $0
-                                    </td>
-                                    <td style="width:25%">PER TRANSACTION FEE<br />
-                                        .50 CENTS
-                                    </td> -->
                           </tr>
                         </table>
                       </div>
@@ -829,13 +819,7 @@
                       </div>
                     </div>
                   </div>
-                  <!--<h5 class="color-text text-center">Get Contract Info <br> from Sarbjit</h5>
-                  <div class="text-right"><img class="color-img" src="assets/img/document.png" alt=""> </div>-->
                 </div>
-                <!-- <div class="col-12 text-right">
-
-              </div> -->
-                <!-- text end -->
                 <div class="col-12 text-right pt-3">
                   <h5 class="cursor-pointer float-left"
                     (click)="setStepName('signup')"><i class="fa fa-angle-double-left"
@@ -876,7 +860,6 @@
                     class="btn btn-primary text-center my-3"
                     type="button">Pay</button>
                 </form>
-                <!-- text end -->
                 <div class="col-12 text-right pt-3">
                   <h5 class="float-left cursor-pointer "
                     (click)="setStepName('aggreement')"><i class="fa fa-angle-double-left"
@@ -885,7 +868,7 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
         <div class="clearfix "></div>
       </div>
 
@@ -898,15 +881,14 @@
                 alt="">
             </div>
             <div class="col-md-9">
-              <h5 *ngIf="plan_name !='Free'">Thank you for your purchase.</h5>
-              <h5 *ngIf="plan_name =='Free'">Thanks for the sign Up for Trial Software.</h5>
+              <h5>Thank you for your purchase.</h5>
               <h5>Welcome to the Medicare Magician Family!</h5>
               <p>
                 Please check your email for your user name and login information. <br>
                 For any questions, please use <strong class="text-decoration-underline">CHAT</strong> or send an email
                 to <br>
                 <a href="javascript:;"
-                  routerLink="/main/contact">Magic@MedicareMagician.US</a>
+                  routerLink="/system/login">Please log in.</a>
               </p>
             </div>
           </div>

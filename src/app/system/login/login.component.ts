@@ -96,7 +96,7 @@ export class LoginComponent implements OnInit {
         options
       );
       if (loginInfo.status != '1') {
-        this.toastr.error(loginInfo.message, '');
+        this.toastr.error(loginInfo.message, '', {timeOut: 3000});
       } else {
         let tkn = loginInfo.access_token;
         this.authService.storeTokens(tkn);
@@ -110,7 +110,8 @@ export class LoginComponent implements OnInit {
     } catch (error) {
       this.toastr.error(
         'Apologies for the inconvenience.The error is recorded.',
-        ''
+        '',
+        {timeOut: 3000}
       );
       this.loading = false;
     }
@@ -144,7 +145,7 @@ export class LoginComponent implements OnInit {
           ]);
         },
         (signErrRes) => {
-          this.toastr.error(signErrRes.error.message, '');
+          this.toastr.error(signErrRes.error.message, '', {timeOut: 3000});
         }
       );
   }
@@ -160,16 +161,16 @@ export class LoginComponent implements OnInit {
 
   async SubmitForgot() {
     if (this.fEmail == '') {
-      this.toastr.error('Email cannot be blank', '');
+      this.toastr.error('Email cannot be blank', '', {timeOut: 3000});
       return;
     }
     if (this.IsKeySend == true) {
       if (this.pKey == '') {
-        this.toastr.error('Password key cannot be blank', '');
+        this.toastr.error('Password key cannot be blank', '', {timeOut: 3000});
         return;
       }
       if (this.cfnewpassword != this.newpassword) {
-        this.toastr.error('New password and confirm passowrd is not match', '');
+        this.toastr.error('New password and confirm passowrd is not match', '', {timeOut: 3000});
         return;
       }
     }
@@ -187,11 +188,11 @@ export class LoginComponent implements OnInit {
         options
       );
       if (loginInfo.status != '1') {
-        this.toastr.error(loginInfo.message, '');
+        this.toastr.error(loginInfo.message, '', {timeOut: 3000});
       } else {
         let h = JSON.parse(loginInfo.data);
         this._id = h[0]._id;
-        this.toastr.success('Password key is sent on your registered mail', '');
+        this.toastr.success('Password key is sent on your registered mail', '', {timeOut: 3000});
         this.IsKeySend = true;
       }
       this.loading = false;
@@ -211,9 +212,9 @@ export class LoginComponent implements OnInit {
         options
       );
       if (loginInfo.status != '1') {
-        this.toastr.error(loginInfo.message, '');
+        this.toastr.error(loginInfo.message, '', {timeOut: 3000});
       } else {
-        this.toastr.success('Update', '');
+        this.toastr.success('Update', '', {timeOut: 3000});
         this.IsKeySend = false;
         this.modalService.dismissAll();
       }

@@ -32,19 +32,17 @@ export class SignupComponent implements OnInit {
     private readonly routeConstantService: RouteConstantsService
   ) {
     this.Regform = this.fb.group({
-      first_name: ['', Validators.required],
-      last_name: ['', Validators.required],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
       npn: ['', [Validators.required, Validators.minLength(7)]],
-      phone_no: ['', Validators.required],
-      office_no: [''],
-      fax_no: [''],
+      phone: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       street: [''],
       city: [''],
       state: [''],
       zip: [''],
       website: [''],
-      agent: [''],
+      company: [''],
       password: ['', [Validators.required, Validators.minLength(6)]],
       cpassword: ['', [Validators.required, Validators.minLength(6)]],
     });
@@ -68,19 +66,17 @@ export class SignupComponent implements OnInit {
 
   ValidateForm() {
     this.Regform = this.fb.group({
-      first_name: ['', Validators.required],
-      last_name: ['', Validators.required],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
       npn: ['', [Validators.required, Validators.minLength(7)]],
-      phone_no: ['', Validators.required],
-      office_no: [''],
-      fax_no: [''],
+      phone: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       street: [''],
       city: [''],
       state: [''],
       zip: [''],
       website: [''],
-      agent: [''],
+      company: [''],
       password: ['', [Validators.required, Validators.minLength(6)]],
       cpassword: ['', [Validators.required, Validators.minLength(6)]],
     });
@@ -99,7 +95,7 @@ export class SignupComponent implements OnInit {
 
       const body = this.Regform.value;
       if (body['password'] != body['cpassword']) {
-        this.toastr.error('Password is not match', '');
+        this.toastr.error('Password is not match', '', {timeOut: 3000});
         return;
       }
 
@@ -112,11 +108,11 @@ export class SignupComponent implements OnInit {
         options
       );
       if (resInfo.status != '1') {
-        this.toastr.error(resInfo.message, '');
+        this.toastr.error(resInfo.message, '', {timeOut: 3000});
         this.loading = false;
         return;
       }
-      this.toastr.info('Thanks for registration', '');
+      this.toastr.info('Thanks for registration', '', {timeOut: 3000});
       await this.SendMail(body['email']);
 
       this.submitted = false;
@@ -126,111 +122,11 @@ export class SignupComponent implements OnInit {
     } catch (error) {
       this.toastr.error(
         'Apologies for the inconvenience.The error is recorded.',
-        ''
+        '',
+        {timeOut: 3000}
       );
       this.loading = false;
     }
-  }
-
-  SubmitFunction_new2() {
-    this.submitted = true;
-    if (this.Regform.invalid) {
-      return;
-    }
-
-    const body = this.Regform.value;
-    if (body['password'] !== body['cpassword']) {
-      this.toastr.error('Password is not match', '');
-      return;
-    }
-
-    this.loading = true;
-
-    this.authRestService
-      .signup({ username: body.email, password: body.password })
-      .pipe(
-        catchError((signupErrRes) => {
-          this.toastr.error(signupErrRes.error.message, '', { timeOut: 10000 });
-          return throwError(signupErrRes);
-        }),
-        switchMap((signupSucRes: any) => {
-          const decodedJwt = Jwt.parseJwt(signupSucRes.accessToken);
-          console.log({ signupSucRes, decodedJwt });
-          return this.profileRestService.createProfile(
-            {
-              email: body.username,
-              firstName: body.first_name,
-              lastName: body.last_name,
-              phoneNo: body.phone_no,
-              officeNo: body.office_no || null,
-              faxNo: body.fax_no || null,
-              npn: body.npn,
-              street: body.street,
-              city: body.city || null,
-              state: body.state,
-              zip: body.zip || null,
-              website: body.website || null,
-            },
-            signupSucRes.accessToken
-          );
-        }),
-        //TODO: Vivek: To implement send email logic here
-        finalize(() => (this.loading = false))
-      )
-      .subscribe(() => {
-        this.router.navigate([
-          this.routeConstantService.ROUTES_PATH.LOGIN_PAGE,
-        ]);
-      });
-  }
-
-  SubmitFunction_new() {
-    this.submitted = true;
-    if (this.Regform.invalid) {
-      return;
-    }
-
-    const body = this.Regform.value;
-    if (body['password'] !== body['cpassword']) {
-      this.toastr.error('Password is not match', '');
-      return;
-    }
-
-    this.loading = true;
-
-    this.authRestService
-      .signup({
-        username: body.email,
-        password: body.password,
-        firstName: body.first_name,
-        lastName: body.last_name,
-        phoneNo: body.phone_no,
-        officeNo: body.office_no || null,
-        faxNo: body.fax_no || null,
-        npn: body.npn,
-        street: body.street,
-        city: body.city || null,
-        state: body.state,
-        zip: body.zip || null,
-        website: body.website || null,
-      })
-      .pipe(finalize(() => (this.loading = false)))
-      .subscribe(
-        (signupSucRes) => {
-          this.toastr.success(
-            'You have signed up successfully, Login to Proceed',
-            '',
-            { timeOut: 10000 }
-          );
-          this.router.navigate([
-            this.routeConstantService.ROUTES_PATH.LOGIN_PAGE,
-          ]);
-        },
-        (signupErrRes) => {
-          this.toastr.error(signupErrRes.error.message, '', { timeOut: 10000 });
-          return throwError(signupErrRes);
-        }
-      );
   }
 
   async SendMail(email = '') {

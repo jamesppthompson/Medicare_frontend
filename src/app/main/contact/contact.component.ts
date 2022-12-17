@@ -27,10 +27,10 @@ export class ContactComponent implements OnInit {
     private readonly emailRestService: EmailRestService
   ) {
     this.Regform = this.fb.group({
-      first_name: ['', Validators.required],
-      last_name: ['', Validators.required],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
       npn: ['', [Validators.required, Validators.minLength(7)]],
-      phone_no: ['', Validators.required],
+      phone: ['', Validators.required],
       office_no: [''],
       fax_no: [''],
       email: ['', [Validators.required, Validators.email]],
@@ -62,10 +62,10 @@ export class ContactComponent implements OnInit {
 
   ValidateForm() {
     this.Regform = this.fb.group({
-      first_name: ['', Validators.required],
-      last_name: ['', Validators.required],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
       npn: [''],
-      phone_no: ['', Validators.required],
+      phone: ['', Validators.required],
       office_no: [''],
       fax_no: [''],
       email: ['', [Validators.required, Validators.email]],
@@ -104,7 +104,7 @@ export class ContactComponent implements OnInit {
         options
       );
       if (resInfo.status != '1') {
-        this.toastr.error(resInfo.message, '');
+        this.toastr.error(resInfo.message, '', {timeOut: 3000});
         this.loading = false;
         return;
       }
@@ -115,7 +115,8 @@ export class ContactComponent implements OnInit {
     } catch (error) {
       this.toastr.error(
         'Apologies for the inconvenience.The error is recorded.',
-        ''
+        '',
+        {timeOut: 3000}
       );
       this.loading = false;
     }
@@ -128,10 +129,10 @@ export class ContactComponent implements OnInit {
     }
 
     const {
-      first_name: firstName,
-      last_name: lastName,
+      firstName: firstName,
+      lastName: lastName,
       email,
-      phone_no: phoneNo,
+      phone: phoneNo,
       message,
     } = this.Regform.value;
     this.loading = true;
@@ -149,14 +150,14 @@ export class ContactComponent implements OnInit {
       .subscribe(
         () => {
           this.toastr.success('Thanks for contacting us.', '', {
-            timeOut: 1000,
+            timeOut: 3000,
           });
         },
         (err) => {
           this.toastr.error(
             'Apologies for the inconvenience.The error is recorded.',
             '',
-            { timeOut: 5000 }
+            { timeOut: 3000 }
           );
         }
       );

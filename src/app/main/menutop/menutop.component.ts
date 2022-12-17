@@ -30,14 +30,6 @@ export class MenutopComponent implements OnInit {
     private readonly storageService: StorageService,
     private readonly profileService: ProfileService
   ) {
-    this.profileService.medicareMagicianProfile$.subscribe(() => {
-      const accessToken = this.storageService.getAccessToken();
-      if (!accessToken) {
-        this.Is_Login = false;
-      } else {
-        this.Is_Login = true;
-      }
-    });
     /* this.commonservice.is_loggedin.subscribe((res) => {
       this.Is_Login = res;
     }); */

@@ -9,13 +9,14 @@ export class ApiService {
     Regsiter: 'regsiter',
     Downloadlog: 'downloadlog',
     ContactUs: 'ContactUs',
-    AcceptAgreement: 'AcceptAgreement',
+    // AcceptAgreement: 'AcceptAgreement',
     sendmail: 'sendmail',
     loginpost: 'api/system/loginpost',
     ContactMail: 'contactMail',
     ForgotPassword: 'forgotPassword',
     UpdatePassword: 'UpdatePassword',
     admindashboard: 'admindashboard',
+    UserInfo: 'userInfo',
   };
   public paymentAPI = {
     checkout_square: 'checkout_square',
