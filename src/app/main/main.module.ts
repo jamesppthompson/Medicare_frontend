@@ -7,6 +7,8 @@ import { AboutComponent } from './about/about.component';
 import { WorksComponent } from './works/works.component';
 import { PricingComponent } from './pricing/pricing.component';
 import { ContactComponent } from './contact/contact.component';
+import { CallComponent } from './call/call.component';
+import { UserComponent } from './user/user.component';
 import { MenutopComponent } from './menutop/menutop.component';
 import { MobilenavComponent } from './mobilenav/mobilenav.component';
 import { SystemRoutingModule } from '../system/system-routing.module';
@@ -27,6 +29,8 @@ import { PaymentModule } from '../payment/payment.module';
     WorksComponent,
     PricingComponent,
     ContactComponent,
+    CallComponent,
+    UserComponent,
     MenutopComponent,
     MobilenavComponent,
     FooterComponent,
@@ -52,4 +56,5 @@ import { PaymentModule } from '../payment/payment.module';
     FooterComponent,
   ],
 })
-export class MainModule {}
+export class MainModule { }
+

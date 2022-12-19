@@ -30,9 +30,9 @@ export class MenutopComponent implements OnInit {
     private readonly storageService: StorageService,
     private readonly profileService: ProfileService
   ) {
-    /* this.commonservice.is_loggedin.subscribe((res) => {
+    this.commonservice.is_loggedin.subscribe((res) => {
       this.Is_Login = res;
-    }); */
+    });
   }
 
   ngOnInit(): void {

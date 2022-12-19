@@ -17,12 +17,8 @@
               <!-- Navbar Toggler -->
               <div class="classy-navbar-toggler">
                 <!-- <span class="navbarToggler"><span></span><span></span><span></span></span> -->
-                <button
-                  type="button"
-                  id="sidebarCollapse"
-                  class="btn btn-bar d-block d-xl-none"
-                  (click)="sideNavService.toggleSideNav()"
-                >
+                <button type="button" id="sidebarCollapse" class="btn btn-bar d-block d-xl-none"
+                  (click)="sideNavService.toggleSideNav()">
                   <span><i class="fa fa-bars"></i></span>
                 </button>
               </div>
@@ -38,39 +34,28 @@
                     <li *ngIf="!Is_Login">
                       <a href="javascript:;" routerLink="/main/home">Home</a>
                     </li>
-
                     <li *ngIf="!Is_Login">
                       <a href="javascript:;" routerLink="/main/about">About</a>
                     </li>
                     <li *ngIf="!Is_Login">
-                      <a href="javascript:;" routerLink="/main/works"
-                        >How It Works</a
-                      >
+                      <a href="javascript:;" routerLink="/main/works">How It Works</a>
                     </li>
-                    <li *ngIf="!Is_Login">
-                      <a href="javascript:;" routerLink="/main/pricing"
-                        >Pricing</a
-                      >
+                    <li *ngIf="Is_Login">
+                      <a href="http://call.medicaremagician.us/call">Call Center</a>
                     </li>
-                    <li *ngIf="!Is_Login" class="header-border1">
-                      <a href="javascript:;" routerLink="/main/contact"
-                        >Contact Us</a
-                      >
-                    </li>
+                    <!-- <li *ngIf="Is_Login">
+                      <a href="http://localhost:3000/users/prospects">Users</a>
+                    </li> -->
                   </ul>
-                  <ul class="text-end">
+                  <ul class=" text-end">
                     <li *ngIf="!Is_Login" class="nav-btn">
-                      <a href="javascript:;" routerLink="/system/login"
-                        >Log In</a
-                      >
+                      <a href="javascript:;" routerLink="/system/login">Log In</a>
                     </li>
                     <li *ngIf="!Is_Login" class="nav-btn ml-lg-2">
                       <a href="javascript:;" (click)="opensigup()">Sign Up</a>
                     </li>
                     <li *ngIf="!Is_Login" class="nav-btn1">
-                      <a href="javascript:;" routerLink="/system/signup"
-                        >TRY BEFORE YOU BUY</a
-                      >
+                      <a href="javascript:;" routerLink="/system/signup">TRY BEFORE YOU BUY</a>
                     </li>
                     <li class="nav-btn" *ngIf="Is_Login" (click)="logout()">
                       <a href="javascript:;">Log Out</a>

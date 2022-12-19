@@ -1,0 +1,119 @@
+<ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px', fullScreenBackdrop: true }">
+</ngx-loading>
+<app-menutop></app-menutop>
+<!-- banner start -->
+<section class="sub-banner">
+  <h3>Users</h3>
+</section>
+<!-- banner end -->
+<!-- main section -->
+<section class="contact py-4">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <img class="contact-image" src="assets/img/contact-img.png" alt="">
+        <h4 class="text-center">Questions?</h4>
+        <div class="row pt-3">
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-3">
+                <div class="contact-box">
+                  <!-- <i class="fa fa-commenting-o d-flex justify-content-center align-items-center"></i> -->
+                  <img class="cursor" src="assets/img/chat.png" alt="" (click)="chatclick()">
+                </div>
+              </div>
+              <div class="col-9 p-0">
+                <h6>Click on the Chat button for <br> fast assistance.</h6>
+                <p><i>(9:00 AM to 9:00 PM East Coast)</i></p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12 mt-2">
+            <div class="row">
+              <div class="col-3">
+                <div class="contact-box">
+                  <!-- <i class="fa fa-envelope-o d-flex justify-content-center align-items-center"></i> -->
+                  <img src="assets/img/mail.png" alt="">
+                </div>
+              </div>
+              <div class="col-9 p-0 pt-2">
+                <h6>Or, email us at <br>Magic@MedicareMagician.US</h6>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-8">
+        <div class="contact-form-area contact-page">
+          <form [formGroup]="Regform">
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label for="">First Name <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" formControlName="firstName" id="name" placeholder="First Name"
+                    [ngClass]="{'is-invalid': submitted && frmCtrl.firstName.errors}">
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label for="">Last Name <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" id="name" formControlName="lastName" placeholder="Last Name"
+                    [ngClass]="{'is-invalid': submitted && frmCtrl.lastName.errors}">
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="form-group">
+                  <label for="">Email <span class="text-danger">*</span></label>
+                  <input type="email" class="form-control" formControlName="email" id="email" placeholder="Email"
+                    [ngClass]="{'is-invalid': submitted && frmCtrl.email.errors}">
+                </div>
+              </div>
+
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label for="">Phone <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" (keypress)="numberOnly($event)" formControlName="phone"
+                    id="name" minlength="10" maxlength="10" placeholder="Phone"
+                    [ngClass]="{'is-invalid': submitted && frmCtrl.phone.errors}">
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label for="">National Producer Number</label>
+                  <input type="text" class="form-control" (keypress)="numberOnly($event)" formControlName="npn"
+                    id="name" placeholder="NPN" [ngClass]="{'is-invalid': submitted && frmCtrl.npn.errors}">
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="form-group">
+                  <label for="">Company</label>
+                  <input type="text" class="form-control" formControlName="street" id="subject" placeholder="Company">
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="form-group">
+                  <label for="">Website</label>
+                  <input type="text" class="form-control" formControlName="website" id="subject" placeholder="Website">
+                </div>
+              </div>
+
+              <div class="col-12">
+                <div class="form-group">
+                  <label for="">Message <span class="text-danger">*</span></label>
+                  <textarea name="message" class="form-control" formControlName="message" id="message" cols="20"
+                    rows="5" placeholder="Type your message here..."></textarea>
+                </div>
+              </div>
+              <div class="col-12 text-center">
+                <button class="btn credit-btn1 btn-block br-20" type="button" (click)="SubmitFunction()">SUBMIT</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- main section end -->
+<!-- chat-section start -->
+<app-footer></app-footer>

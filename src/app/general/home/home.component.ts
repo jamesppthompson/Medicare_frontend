@@ -12,12 +12,14 @@ import { RouteConstantsService } from '../../services/route-constants/route-cons
 import { StorageService } from '../../services/storage/storage.service';
 import { AgreementRestService } from '../../services/agreement-rest/agreement-rest.service';
 import { catchError, filter, finalize, map, take, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 declare const Square: any;
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
 })
+
 export class HomeComponent implements OnInit, OnDestroy {
   submitted = false;
   loading = false;
@@ -33,7 +35,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   state = '';
   zip = '';
   website = '';
-  company= '';
+  company = '';
   registrationDate = '';
   profile_json: any;
   userExpirationDate = "2022-01-01";
@@ -52,12 +54,12 @@ export class HomeComponent implements OnInit, OnDestroy {
   title1 = '';
   crDate: any;
 
-  cardNumber= '5379931012287767';
-  expirationDate= '0326';
-  cvv= '034';
+  cardNumber = '5379931012287767';
+  expirationDate = '0326';
+  cvv = '034';
 
   showPaymentIframe = false;
-
+  playerData: any[];
 
   constructor(
     public commonservice: CommonService,
@@ -98,16 +100,15 @@ export class HomeComponent implements OnInit, OnDestroy {
       profile[0].street + ' ' + profile[0].state + ' ' + profile[0].zip;
     this.by1 = profile[0].firstName + ' ' + profile[0].lastName;
     this.crDate = new Date();
-
-      
+    this.playerData = [0, 1, 2]
     this.setPayListInfo(profile[0].enrollment)
-    
+
     // agreement and pay info
   }
-  
+
   ngOnInit(): void {
     $("#enrollmentTableInfo").html(this.enrollmentTableInfo);
-   
+
   }
   ngOnDestroy(): void {
   }
@@ -116,26 +117,26 @@ export class HomeComponent implements OnInit, OnDestroy {
     console.log(enrollmentInfo);
     this.enrollmentTableInfo = '';
     enrollmentInfo?.forEach((
-      element: { 
-        enrollmentDate: string | number | Date; 
-        planName: string; 
-        name1: string; 
-        amount: string; 
-        paidStatus: string; 
+      element: {
+        enrollmentDate: string | number | Date;
+        planName: string;
+        name1: string;
+        amount: string;
+        paidStatus: string;
       }) => {
-        let d = new Date(element.enrollmentDate);
-        if(element.planName === "Freely") d.setDate(d.getDate() + 15);
-        else if(element.planName === "Monthly") d.setMonth(d.getMonth() + 1);
-        else if(element.planName === "Yearly") d.setMonth(d.getMonth() + 12);
-        let enrollmentExpirationDate = d.toISOString().slice(0, 10)
-        
-        this.enrollmentTableInfo += "<tr><td>" + element.name1 +"</td><td>" + element.enrollmentDate +"</td><td>" + element.planName +"</td><td>$" + element.amount +"</td><td>" + enrollmentExpirationDate + "</td><td>" +element.paidStatus + "</td></tr>"
-        
-        const e = new Date(enrollmentExpirationDate);
-        const f = new Date(this.userExpirationDate);
-        if(f < e) 
-          this.userExpirationDate = enrollmentExpirationDate;
-      });
+      let d = new Date(element.enrollmentDate);
+      if (element.planName === "Freely") d.setDate(d.getDate() + 15);
+      else if (element.planName === "Monthly") d.setMonth(d.getMonth() + 1);
+      else if (element.planName === "Yearly") d.setMonth(d.getMonth() + 12);
+      let enrollmentExpirationDate = d.toISOString().slice(0, 10)
+
+      this.enrollmentTableInfo += "<tr><td>" + element.name1 + "</td><td>" + element.enrollmentDate + "</td><td>" + element.planName + "</td><td>$" + element.amount + "</td><td>" + enrollmentExpirationDate + "</td><td>" + element.paidStatus + "</td></tr>"
+
+      const e = new Date(enrollmentExpirationDate);
+      const f = new Date(this.userExpirationDate);
+      if (f < e)
+        this.userExpirationDate = enrollmentExpirationDate;
+    });
   }
 
   async setUserInfo(userId: any) {
@@ -152,7 +153,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         options
       );
       if (loginInfo.status != '1') {
-        this.toastr.error(loginInfo.message, '', {timeOut: 3000});
+        this.toastr.error(loginInfo.message, '', { timeOut: 3000 });
       } else {
         let tkn = loginInfo.access_token;
         this.authService.storeTokens(tkn);
@@ -165,7 +166,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.toastr.error(
         'Apologies for the inconvenience.The error is recorded.',
         '',
-        {timeOut: 3000}
+        { timeOut: 3000 }
       );
       this.loading = false;
     }
@@ -174,7 +175,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   openPaymentPlanModal(paymentPlanModal: any) {
     this.modalService.open(paymentPlanModal, { centered: true });
   }
-  
+
   openAgreementModal(
     agreementModal: any,
     amount: any,
@@ -205,14 +206,14 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
 
-  
+
   async Pay() {
-    if(!this.checkCanPay()) {
+    if (!this.checkCanPay()) {
       return false;
       throw "error";
     }
 
-    this.loading = true;    
+    this.loading = true;
     try {
       const body = {
         pName: this.pName,
@@ -220,7 +221,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         by1: this.by1,
         name1: this.name1,
         title1: this.title1,
-        
+
         amount: 1.00,
         userId: localStorage.getItem('UserID'),
         cardNumber: this.cardNumber,
@@ -240,10 +241,10 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.loading = false;
       //this.modalService.dismissAll();
       if (payInfo.status != '1') {
-        this.toastr.error(payInfo.message, '', {timeOut: 3000});
-        
+        this.toastr.error(payInfo.message, '', { timeOut: 3000 });
+
       } else {
-        this.toastr.info('Payment Successful', '', {timeOut: 3000});
+        this.toastr.info('Payment Successful', '', { timeOut: 3000 });
         this.payment_status = 'Paid';
         this.setPayListInfo(payInfo?.data?.enrollment);
         $("#enrollmentTableInfo").html(this.enrollmentTableInfo);
@@ -255,7 +256,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.toastr.error(
         'Apologies for the inconvenience.The error is recorded.',
         '',
-        {timeOut: 3000}
+        { timeOut: 3000 }
       );
       this.loading = false;
       return false;
@@ -268,13 +269,13 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.router.navigate([this.RouteConstantsService.ROUTES_PATH.LOGIN_PAGE]);
   }
 
-  
+
 
   checkCanPay() {
     if (this.pName == '' || this.address == '' || this.by1 == '' || this.name1 == '' || this.title1 == '') {
       return false;
     }
-    if(this.cardNumber == '' || this.cvv == '' || this.expirationDate == '')
+    if (this.cardNumber == '' || this.cvv == '' || this.expirationDate == '')
       return false;
 
     return true;

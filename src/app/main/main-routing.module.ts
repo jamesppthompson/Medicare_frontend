@@ -7,6 +7,8 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
 import { PricingComponent } from './pricing/pricing.component';
 import { WorksComponent } from './works/works.component';
 import { PaymentComponent } from '../payment/payment/payment.component'
+import { CallComponent } from './call/call.component';
+import { UserComponent } from './user/user.component';
 
 const routes: Routes = [
   { path: 'home', component: IndexComponent },
@@ -16,6 +18,8 @@ const routes: Routes = [
   { path: 'contact', component: ContactComponent },
   { path: 'landing', component: LandingPageComponent },
   { path: 'payment', component: PaymentComponent },
+  { path: 'call', component: CallComponent },
+  { path: 'users', component: UserComponent },
 ];
 
 @NgModule({
